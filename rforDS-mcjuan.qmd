@@ -1,0 +1,14 @@
+---
+title: "R for Data Science (2e): Activity in Sec Math 17"
+author: "Grace Juan"
+format: html
+editor: visual
+---
+
+# Introduction
+
+## What will you learn
+
+Review the pipeline because sir will include it in the exam
+
+![this is the pipeline](RforDSpics/rfordspic1.png)
