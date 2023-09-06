@@ -12,3 +12,15 @@ editor: visual
 Review the pipeline because sir will include it in the exam
 
 ![this is the pipeline](RforDSpics/rfordspic1.png)
+
+# The Tidyverse
+
+To install the tidyverse package use the code: `install.packages("tidyverse")`
+
+```         
+```
+
+```{r}
+library(tidyverse)
+
+```
