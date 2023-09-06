@@ -15,7 +15,11 @@ Review the pipeline because sir will include it in the exam
 
 # The Tidyverse
 
-To install the tidyverse package use the code: `install.packages("tidyverse")`
+To install the tidyverse package use the code:
+
+`install.packages("tidyverse")`
+
+`install.packages("tidyverse")`
 
 ```         
 ```
