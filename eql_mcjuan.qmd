@@ -1,0 +1,27 @@
+---
+title: "Exploring Quarto and Latex"
+author: "Grace Juan"
+format: pdf
+editor: visual
+number-sections: true
+---
+
+##Integration by Substitution
+
+::: {#htm:subrule}
+## Substitution Rule
+
+If $u=g(x)$ is a differentiable function whose range is an interval $I$ and $f$ is a continuous on $I$ then,
+
+$$
+\int f(g(x))\cdot g'(x)dx = \int f(u)du
+$$
+:::
+
+::: {exm:subrule}
+1.$$\int (1-4x)^\frac{1}{2}dx$$
+
+If we let $u=1-4x$, then $du=-4dx$. We multiply the integrand $\frac{-4}{-4}$. Thus, $$
+\int (1-4x)^\frac{1}{2}dx = \int (1-4x)^\frac{1}{2}\cdot \frac{-4}{-4}dx = \int (u)^\frac{1}{2} (-\frac{du}{4}) = -\frac{1}{4} \int (u)^\frac{1}{2}du = 
+$$
+:::
