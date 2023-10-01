@@ -233,10 +233,150 @@ $$
 \end{aligned}
 $$
 
-It is interactive to remember the behavior of each function introduced in this course; doing so will help us in computing new limits. Recalling the graphs of our new functions will be helpful in remembering their behavior. For instance, using the graph of $f(x)=\log_a x$, where $0\lt a \lt 1$, one sees that $\displaystyle\lim_{x \to 0^+}\log_a x=+\infty$. Thus if $f(x)$ approaches $0$ through positive values $x$ approaches $k$, then 
+It is imperative to remember the behavior of each function introduced in this course; doing so will help us in computing new limits. Recalling the graphs of our new functions will be helpful in remembering their behavior. For instance, using the graph of $f(x)=\log_a x$, where $0\lt a \lt 1$, one sees that $\displaystyle\lim_{x \to 0^+}\log_a x=+\infty$. Thus if $f(x)$ approaches $0$ through positive values $x$ approaches $k$, then 
 $$
 \displaystyle\lim_{x \to k}\log_a[f(x)]=\displaystyle\lim_{y \to 0^+}\log_a y=+\infty.
 $$
 :::
 
+::: {#exm:5.6.6}
 
+**Solution**
+Note that since $x+\sin x \ge x - 1$ for any $x \in R$ and $\displaystyle\lim_{x \to +\infty} {x-1=+\infty}$, then $\displaystyle\lim_{x \to +\infty}{x + \sin x = +\infty}$ as well. Thus, the limit is indeterminate of type $\left(\frac{\infty}{\infty}\right)$. 
+
+However, $\displaystyle\lim_{x \to +\infty}{\frac{D_x(x+\sin x)}{D_x(x)}=\displaystyle\lim_{x \to +\infty}\frac{1+\cos x}{1}}$ does not exist $\cos x$ does not approach any particular value as $x\to +\infty$. Neither does $1+\cos x$ grow without bound. Thus, L'Hospital's Rule
+does not apply.
+
+We therefore need to employ other techniques. In particular, notice that any $x\gt 0$, the following hold:
+$$
+\begin{aligned}
+x-1 \le x+\sin x \le x+1 \\
+x-1 \le x+\sin x \le x+1\\
+\iff x
+\end{aligned}
+$$
+
+Also, $\displaystyle\lim_{x\to+\infty}{\frac{x-1}{x}=1=\displaystyle\lim_{x\to+\infty}{\frac{x+1}{x}}}$, so by the Squeeze Theorem, $\displaystyle\lim_{x\to+\infty}{\frac{x+\sin x}{x}=1}$.
+:::
+
+::: {#htm:indeterminate forms}
+**Indeterminate Forms of Type** $0\cdot \infty$ and $\infty -\infty$
+:::
+
+::: {#htm:definition}
+**Definition**
+
+1. The $\displaystyle\lim_{x\to a}{f(x)g(x)}$ is an indeterminate form of type $0\cdot \infty$ if either
+$$
+\displaystyle\lim_{x\to a}{f(x)=0}$$ and $\displaystyle\lim_{x\to a}{g(x)=+\infty}$ or $-\infty$, or 
+
+$$
+\displaystyle\lim_{x\to a}{f(x)=+\infty}
+$$ or $-\infty$ and $\displaystyle\lim_{x\to a}{g(x)=0}$.
+
+2. The $\displaystyle\lim_{x\to a}{f(x)g(x)}$ is an indeterminate form of type $\infty - \infty$ if either
+
+$$
+\displaystyle\lim_{x\to a}{f(x)=+\infty}
+$$ and $\displaystyle\lim_{x\to a}{g(x)=+\infty}$ or $-\infty$, or 
+
+$$
+\displaystyle\lim_{x\to a}{f(x)=-\infty}
+$$ and $\displaystyle\lim_{x\to a}{g(x)=+\infty}$.
+:::
+
+::: {#htm:remark}
+**Remark** L'Hospital's Rule works only for indeterminate forms of type $\frac{0}{0}$ and $\frac{\infty}{\infty}$. Any other indeterminate form must be expressed equivalently in one of these two forms if we wish to apply L'Hospital's Rule. For the new indeterminate forms described above, these conversions can be performed as described below.
+
+1. If $\displaystyle\lim_{x\to a}{f(x)=0}$ and $\displaystyle\lim_{x\to a}{g(x)=+\infty}$ or $-\infty$, write $\displaystyle\lim_{x\to a}{f(x)g(x)}$ as:
+(a) $\displaystyle\lim_{x\to a}{\frac{f(x)}{\frac{1}{g(x)}}}$, which is indeterminate of type $\frac{0}{0}$, or
+(b) $\displaystyle\lim_{x\to a}{\frac{g(x)}{\frac{1}{f(x)}}}$, which is indeterminate of type $\frac{\infty}{\infty}$
+and apply L'Hospital's Rule.
+
+2. If $\displaystyle\lim_{x\to a}{f(x)+g(x)}$ is indeterminate of type $\infty - \infty$, rewrite $f(x)+g(x)$ as a single expression to obtain an indeterminate form of type $\frac{0}{0}$ or $\frac{\infty}{\infty}$ and apply L'Hospital's Rule.
+:::
+
+:::{#exm:example}
+**Example** Evaluate the following limits.
+
+1. $\displaystyle\lim_{x\to 0^+}{\sin^{-1} (2x) \csc x}$ $(0\cdot +\infty)$
+**Solution**
+
+$$
+\begin{aligned}
+\displaystyle\lim_{x\to 0^+}{\sin^{-1} (2x) \csc x} &=\displaystyle\lim_{x\to 0^+}{\frac{\sin^{-1} (2x)}{\sin x}}\\&=\displaystyle\lim_{x\to 0^+}{\frac{1}{\sqrt{1-4x^2}}}\cdot (2) \\&=\frac{2}{1}\\&=2
+\end{aligned}
+$$
+2. $\displaystyle\lim_{0\to \frac{\pi}{2}^-}{\tan \theta \ln (\sin \theta)}$   $+\infty \cdot 0$
+**Solution**
+
+$$
+\begin{aligned}
+\displaystyle\lim_{\theta\to \frac{\pi}{2}^-}{\tan \theta \ln (\sin \theta)}&=\displaystyle\lim_{\theta \to \frac{\pi}{2}^-}{\frac {\ln (\sin \theta)}{\cot \theta}}\\&=\displaystyle\lim_{\theta\to \frac{\pi}{2}^-}{\frac{\left(\frac {1}{\sin \theta}\right)\cos \theta}{-\csc^2 \theta}}\\&=\displaystyle\lim_{\theta\to \frac{\pi}{2}^-}{-\sin \theta\cos \theta}\\&=-1(0)\\&=0
+\end{aligned}
+$$
+3. $\displaystyle\lim_{x\to 1^+}{\left(\frac{x}{x-1}-\frac{1}{\ln x}\right)}$ $\left(\frac{1}{0^+}-\frac{1}{0^+}\right)$
+**Solution**
+
+$$
+\begin{aligned}
+\displaystyle\lim_{x\to 1^+}{\left(\frac{x}{x-1}-\frac{1}{\ln x}\right)}&=\displaystyle\lim_{x\to 1^+}{\frac{x\ln x -(x-1)}{(x-1)\ln x}}\\&=\displaystyle\lim_{x\to 1^+}{\frac{x\cdot \frac{1}{x}+\ln x-1}{(x-1)\cdot \frac{1}{x}+\ln x}}\\&=\displaystyle\lim_{x\to 1^+}{\frac{\frac{1}{x}}{\frac{1}{x^2}+\frac{1}{x}}}\\&=\frac{1}{2}
+\end{aligned}
+$$
+:::
+
+###Indeterminate Forms of Type
+$1^\infty$, $0^\infty$ and $\infty ^0$
+
+::: {#htm:definition}
+**Definition** Let $f$ be a nonconstant function. The $\displaystyle\lim_{x\to a}{f(x)^{g(x)}}$ is an indeterminate form of type
+
+1. $1^\infty$ if $\displaystyle\lim_{x\to a}{f(x)=1}$ and $\displaystyle\lim_{x\to a}{g(x)=+\infty}$ or $-\infty$.
+
+2. $0^\infty$ if  $\displaystyle\lim_{x\to a}{f(x)=0}$, through positive values, and $\displaystyle\lim_{x\to a}{g(x)=0}$.
+
+3. $\infty ^0$ if $\displaystyle\lim_{x\to a}{f(x)=+\infty}$ and $\displaystyle\lim_{x\to a}{g(x)=0}$.
+:::
+
+::: {#htm:remark}
+**Remark** If $\displaystyle\lim_{x\to a}{f(x)^{g(x)}}$ is indeterminate of type $1^\infty$, $0^\infty$ and $\infty ^0$, we write 
+
+$$
+\displaystyle\lim_{x\to a}{f(x)^{g(x)}}=\displaystyle\lim_{x\to a}{e^{g(x) \ln [f(x)]}}
+$$
+and evaluate $\displaystyle\lim_{x\to a}{g(x) \ln [f(x)]}$ first. Then, if
+
+1. $\displaystyle\lim_{x\to a}{g(x) \ln [f(x)]}=L \in R$, then $\displaystyle\lim_{x\to a}{f(x)^{g(x)}}=e^L$.
+
+2. $\displaystyle\lim_{x\to a}{g(x) \ln [f(x)]}=+\infty$, then $\displaystyle\lim_{x\to a}{f(x)^{g(x)}}=+\infty$.
+
+3. $\displaystyle\lim_{x\to a}{g(x) \ln [f(x)]}=-\infty$, then $\displaystyle\lim_{x\to a}{f(x)^{g(x)}}=0$.
+:::
+
+::: {#exm: example}
+**Example** Evaluate the following limits.
+
+1. $\displaystyle\lim_{x\to 0^+}{x^{\sin x}}$ $0^0$
+**Solution**
+
+First, write $x^{\sin x}=e^{\sin x \ln x}$. Evaluate first $\displaystyle\lim_{x\to 0^+}{\sin x \ln x}$. 
+
+$$
+\begin{aligned}
+\displaystyle\lim_{x\to 0^+}{\sin x \ln x}\\&=\displaystyle\lim_{x\to 0^+}{\frac{\ln x}{\csc x}}\\&=\displaystyle\lim_{x\to 0^+}{\frac{\frac{1}{x}}{-\csc x \cot x}}\\&=\displaystyle\lim_{x\to 0^+}{\frac{-\sin^2 x}{x \cos x}}\\&=\displaystyle\lim_{x\to 0^+}{\frac{-2\sin x \cos x}{x(-\sin x)+\cos x}}\\&=0.
+\end{aligned}
+$$
+Hence, $\displaystyle\lim_{x\to 0^+}{x^{\sin x}}=e^0=1$.
+
+2. $\displaystyle\lim_{x\to +\infty}{\left(1-\frac{3}{x}\right)^{2x}}$      $1^\infty$
+**Solution**
+
+$\left(1-\frac{3}{x}\right)^{2x}=e^{2x\ln \left(1-\frac{3}{x}\right)}$
+
+$$
+\begin{aligned}
+\displaystyle\lim_{x\to +\infty}{2x ln \left(1-\frac{3}{2}\right)}\\&=\displaystyle\lim_{x\to +\infty}{\frac{ln \left(1-\frac{3}{x}\right)}{\frac{1}{2x}}}\\&=\displaystyle\lim_{x\to +\infty}{\frac{1}{1-\frac{3}{x}}}\cdot \left(\frac{3}{x^2}\right)\over-\frac{1}{2x^2}\\&=\displaystyle\lim_{x\to +\infty}{\frac{-6}{1-\frac{3}{x}}}\\&=-6.
+\end{aligned}
+$$
+Hence, $\displaystyle\lim_{x\to +\infty}{\left(1-\frac{3}{x}\right)^{2x}}=e^{-6}$.
+:::
