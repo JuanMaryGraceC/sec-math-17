@@ -178,12 +178,12 @@ provided $\displaystyle\lim_{x \to a}\frac{f'(x)}{g'(x)}$ exists or $\displaysty
 :::
 
 ::: {#htm:remarks}
-### Remarks
+**Remarks**
 L'Hospital's Rule, with suitable modifications, is valid if $"x \to a"$ is replaced by $"x \to a^+"$, $"x \to a^-"$, $"x \to +\infty"$ or $"x \to -\infty"$. 
 :::
 
 ::: {#exm:remarks}
-Evaluate the following limits.
+**Example** Evaluate the following limits.
 1. $\displaystyle\lim_{x \to 0} \frac{x^2-3x}{2x^2+x}$     $\frac{0}{0}$
 **Solution**.
 $$
