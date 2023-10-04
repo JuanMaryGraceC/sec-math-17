@@ -378,5 +378,6 @@ $$
 \displaystyle\lim_{x\to +\infty}{2x ln \left(1-\frac{3}{2}\right)}\\&=\displaystyle\lim_{x\to +\infty}{\frac{ln \left(1-\frac{3}{x}\right)}{\frac{1}{2x}}}\\&=\displaystyle\lim_{x\to +\infty}{\frac{1}{1-\frac{3}{x}}}\cdot \left(\frac{3}{x^2}\right)\over-\frac{1}{2x^2}\\&=\displaystyle\lim_{x\to +\infty}{\frac{-6}{1-\frac{3}{x}}}\\&=-6.
 \end{aligned}
 $$
+
 Hence, $\displaystyle\lim_{x\to +\infty}{\left(1-\frac{3}{x}\right)^{2x}}=e^{-6}$.
 :::
