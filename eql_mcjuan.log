@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2023.8.25)  4 OCT 2023 01:30
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2023.8.25)  4 OCT 2023 01:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1229,7 +1229,7 @@ Missing character: There is no ⧵ in font [latinmodern-math.otf]/OT:script=math
 language=dflt;!
 [5] [6]
 ! Undefined control sequence.
-l.446 \(0\lt
+l.448 \(0\lt
              a \lt 1\), one sees that 
 Here is how much of TeX's memory you used:
  35406 strings out of 479819

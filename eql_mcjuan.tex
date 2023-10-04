@@ -154,7 +154,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, boxrule=0pt, breakable, frame hidden, enhanced, sharp corners, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, sharp corners, interior hidden, breakable, boxrule=0pt, enhanced, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \hypertarget{integration-by-substitution}{%
 \section{Integration by
@@ -278,19 +278,19 @@ condition.}
   The slope of the the tangent line at any point \((x,y)\) on a curve is
   given by \(3\sqrt x\). Find an equation of the curve if the point
   \((9,4)\) is on the curve.
-
-  \textbf{Solution}.
-
-  Let \(y=F(x)\) be an equation of the curve. The slope of the tangent
-  line \(m_{TL}\) at a point \((x,y)\) on the graph of the curve is
-  given by \(F'(x)=3\sqrt x\). We have \[
-  F(x)=\int 3x^\frac{1}{2}dx=2x^\frac{3}{2}+C.
-  \] The initial condition that \((9,4)\) is on the curve implies that
-  \(F(9)=2\cdot 9^\frac{3}{2}=4\). We obtain \(C=-50\). Thus, an
-  equation of the curve is \[
-  y=2x^\frac{3}{2}=-50.
-  \]
 \end{enumerate}
+
+\textbf{Solution}.
+
+Let \(y=F(x)\) be an equation of the curve. The slope of the tangent
+line \(m_{TL}\) at a point \((x,y)\) on the graph of the curve is given
+by \(F'(x)=3\sqrt x\). We have \[
+    F(x)=\int 3x^\frac{1}{2}dx=2x^\frac{3}{2}+C.
+    \] The initial condition that \((9,4)\) is on the curve implies that
+\(F(9)=2\cdot 9^\frac{3}{2}=4\). We obtain \(C=-50\). Thus, an equation
+of the curve is \[
+    y=2x^\frac{3}{2}=-50.
+    \]
 
 \hypertarget{indeterminate-forms-and-lhospitals-rule}{%
 \subsubsection{Indeterminate Forms and L'Hospital's
@@ -433,7 +433,9 @@ and will not help us evaluate the limit. This example should make you
 realize that L'Hospital's Rule is not always helpful. Sometimes, we just
 have to use some old-fashioned tricks. For instance, we evaluate this
 limit by simply manipulating the given expression to obtain a simpler
-expression: \[
+expression:
+
+\[
 \begin{aligned}
 \displaystyle\lim_{x \to 0^-}\frac{\csc x}{1-\cot x}&=\displaystyle\lim_{x \to 0^-}\frac{\frac{1}{\sin x}}{1-\frac{\cos x}{\sin x}}\\&=\displaystyle\lim_{x \to 0^-}\frac{1}{\sin x-\cos x}\\&=-1
 \end{aligned}
@@ -539,7 +541,7 @@ below.
 \item
   \(\displaystyle\lim_{x\to a}{\frac{g(x)}{\frac{1}{f(x)}}}\), which is
   indeterminate of type \(\frac{\infty}{\infty}\) and apply L'Hospital's
-  Rule.
+  Rule
 \end{enumerate}
 
 \begin{enumerate}
