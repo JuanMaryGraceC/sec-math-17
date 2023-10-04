@@ -106,9 +106,9 @@ Now suppose that given a function $f(x)$, we wish to find a particular antideriv
 
 2.  The slope of the the tangent line at any point $(x,y)$ on a curve is given by $3\sqrt x$. Find an equation of the curve if the point $(9,4)$ is on the curve.
 
-    **Solution**.
+**Solution**.
 
-    Let $y=F(x)$ be an equation of the curve. The slope of the tangent line $m_{TL}$ at a point $(x,y)$ on the graph of the curve is given by $F'(x)=3\sqrt x$. We have $$
+Let $y=F(x)$ be an equation of the curve. The slope of the tangent line $m_{TL}$ at a point $(x,y)$ on the graph of the curve is given by $F'(x)=3\sqrt x$. We have $$
     F(x)=\int 3x^\frac{1}{2}dx=2x^\frac{3}{2}+C.
     $$ The initial condition that $(9,4)$ is on the curve implies that $F(9)=2\cdot 9^\frac{3}{2}=4$. We obtain $C=-50$. Thus, an equation of the curve is $$
     y=2x^\frac{3}{2}=-50.
@@ -196,19 +196,24 @@ $$
     \end{aligned}
     $$
 
-6.  $\displaystyle\lim_{x \to 0^-}\frac{\csc x}{1-\cot x}$ $\left(\frac{-\infty}{+\infty}\right)$ **Solution**. $$
+6.  $\displaystyle\lim_{x \to 0^-}\frac{\csc x}{1-\cot x}$ $\left(\frac{-\infty}{+\infty}\right)$ 
+**Solution**. 
+$$
     \begin{aligned}
     \displaystyle\lim_{x \to 0^-}\frac{\csc x}{1-\cot x}&=\displaystyle\lim_{x \to 0^-}\frac{-\csc x \cot x}{\csc^2 x}\\&=\displaystyle\lim_{x \to 0^-}\frac{-\cot x}{\csc x}\\&=\displaystyle\lim_{x \to 0^-} \frac{\csc^2 x}{-\csc x \cot x}\\&=\displaystyle\lim_{x \to 0^-}\frac{\csc x}{-\cot x}\\&=\displaystyle\lim_{x \to 0^-}\frac{-\cot x}{\csc x}
     \end{aligned}
     $$
 
-Observe that the expression in the last line above is exactly the same as the expression in the second line. Hence, continued application of L'Hospital's Rule here will just lead to an infinite string of equations and will not help us evaluate the limit. This example should make you realize that L'Hospital's Rule is not always helpful. Sometimes, we just have to use some old-fashioned tricks. For instance, we evaluate this limit by simply manipulating the given expression to obtain a simpler expression: $$
+Observe that the expression in the last line above is exactly the same as the expression in the second line. Hence, continued application of L'Hospital's Rule here will just lead to an infinite string of equations and will not help us evaluate the limit. This example should make you realize that L'Hospital's Rule is not always helpful. Sometimes, we just have to use some old-fashioned tricks. For instance, we evaluate this limit by simply manipulating the given expression to obtain a simpler expression: 
+
+$$
 \begin{aligned}
 \displaystyle\lim_{x \to 0^-}\frac{\csc x}{1-\cot x}&=\displaystyle\lim_{x \to 0^-}\frac{\frac{1}{\sin x}}{1-\frac{\cos x}{\sin x}}\\&=\displaystyle\lim_{x \to 0^-}\frac{1}{\sin x-\cos x}\\&=-1
 \end{aligned}
 $$
 
-It is imperative to remember the behavior of each function introduced in this course; doing so will help us in computing new limits. Recalling the graphs of our new functions will be helpful in remembering their behavior. For instance, using the graph of $f(x)=\log_a x$, where $0\lt a \lt 1$, one sees that $\displaystyle\lim_{x \to 0^+}\log_a x=+\infty$. Thus if $f(x)$ approaches $0$ through positive values $x$ approaches $k$, then $$
+It is imperative to remember the behavior of each function introduced in this course; doing so will help us in computing new limits. Recalling the graphs of our new functions will be helpful in remembering their behavior. For instance, using the graph of $f(x)=\log_a x$, where $0\lt a \lt 1$, one sees that $\displaystyle\lim_{x \to 0^+}\log_a x=+\infty$. Thus if $f(x)$ approaches $0$ through positive values $x$ approaches $k$, then 
+$$
 \displaystyle\lim_{x \to k}\log_a[f(x)]=\displaystyle\lim_{y \to 0^+}\log_a y=+\infty.
 $$
 :::
@@ -218,7 +223,8 @@ $$
 
 However, $\displaystyle\lim_{x \to +\infty}{\frac{D_x(x+\sin x)}{D_x(x)}=\displaystyle\lim_{x \to +\infty}\frac{1+\cos x}{1}}$ does not exist $\cos x$ does not approach any particular value as $x\to +\infty$. Neither does $1+\cos x$ grow without bound. Thus, L'Hospital's Rule does not apply.
 
-We therefore need to employ other techniques. In particular, notice that any $x\gt 0$, the following hold: $$
+We therefore need to employ other techniques. In particular, notice that any $x\gt 0$, the following hold: 
+$$
 \begin{aligned}
 x-1 \le x+\sin x \le x+1 \\
 x-1 \le x+\sin x \le x+1\\
@@ -229,7 +235,9 @@ $$
 Also, $\displaystyle\lim_{x\to+\infty}{\frac{x-1}{x}=1=\displaystyle\lim_{x\to+\infty}{\frac{x+1}{x}}}$, so by the Squeeze Theorem, $\displaystyle\lim_{x\to+\infty}{\frac{x+\sin x}{x}=1}$.
 :::
 
-::: {#htm:indeterminate forms} **Indeterminate Forms of Type** $0\cdot \infty$ and $\infty -\infty$ :::
+::: {#htm:indeterminate forms}
+**Indeterminate Forms of Type** $0\cdot \infty$ and $\infty -\infty$ 
+:::
 
 ::: {#htm:definition}
 **Definition**
@@ -257,15 +265,9 @@ $$ and $\displaystyle\lim_{x\to a}{g(x)=+\infty}$.
 
 1.  If $\displaystyle\lim_{x\to a}{f(x)=0}$ and $\displaystyle\lim_{x\to a}{g(x)=+\infty}$ or $-\infty$, write $\displaystyle\lim_{x\to a}{f(x)g(x)}$ as:
 
-```{=html}
-<!-- -->
-```
 (a) $\displaystyle\lim_{x\to a}{\frac{f(x)}{\frac{1}{g(x)}}}$, which is indeterminate of type $\frac{0}{0}$, or
-(b) $\displaystyle\lim_{x\to a}{\frac{g(x)}{\frac{1}{f(x)}}}$, which is indeterminate of type $\frac{\infty}{\infty}$ and apply L'Hospital's Rule.
+(b) $\displaystyle\lim_{x\to a}{\frac{g(x)}{\frac{1}{f(x)}}}$, which is indeterminate of type $\frac{\infty}{\infty}$ and apply L'Hospital's Rule
 
-```{=html}
-<!-- -->
-```
 2.  If $\displaystyle\lim_{x\to a}{f(x)+g(x)}$ is indeterminate of type $\infty - \infty$, rewrite $f(x)+g(x)$ as a single expression to obtain an indeterminate form of type $\frac{0}{0}$ or $\frac{\infty}{\infty}$ and apply L'Hospital's Rule.
 :::
 
@@ -341,4 +343,5 @@ $$
 \end{aligned}
 $$
 
-Hence, $\displaystyle\lim_{x\to +\infty}{\left(1-\frac{3}{x}\right)^{2x}}=e^{-6}$. :::
+Hence, $\displaystyle\lim_{x\to +\infty}{\left(1-\frac{3}{x}\right)^{2x}}=e^{-6}$. 
+:::
