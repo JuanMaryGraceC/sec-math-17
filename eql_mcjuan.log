@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2023.8.25)  22 SEP 2023 02:56
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2023.8.25)  4 OCT 2023 01:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1206,34 +1206,38 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.665pt on input line 165.
+(Font)              scaled to size 7.665pt on input line 167.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.475pt on input line 165.
+(Font)              scaled to size 5.475pt on input line 167.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.95099pt on input line 165.
+(Font)              scaled to size 10.95099pt on input line 167.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.66568pt on input line 165.
+(Font)              scaled to size 7.66568pt on input line 167.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.4755pt on input line 165.
+(Font)              scaled to size 5.4755pt on input line 167.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.94882pt on input line 165.
+(Font)              scaled to size 10.94882pt on input line 167.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.66417pt on input line 165.
+(Font)              scaled to size 7.66417pt on input line 167.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.47441pt on input line 165.
-Missing character: There is no ∫ in font [lmroman10-regular]:mapping=tex-text;!
-! Missing $ inserted.
-<inserted text> 
-                $
-l.175 ...\). Thus, \$\$ \int (1-4x)\^{}\frac{1}{2}
-                                                  dx = 
-Here is how much of TeX's memory you used:
- 35359 strings out of 479819
- 711170 string characters out of 5895846
- 1262924 words of memory out of 5000000
- 51966 multiletter control sequences out of 15000+600000
- 538745 words of font info for 71 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 63i,6n,115p,10105b,325s stack positions out of 5000i,500n,10000p,200000b,80000s
+(Font)              scaled to size 5.47441pt on input line 167.
+[1
 
-No pages of output.
+
+] [2] [3] [4]
+Missing character: There is no ⧵ in font [latinmodern-math.otf]/OT:script=math;
+language=dflt;!
+[5] [6]
+! Undefined control sequence.
+l.446 \(0\lt
+             a \lt 1\), one sees that 
+Here is how much of TeX's memory you used:
+ 35406 strings out of 479819
+ 712518 string characters out of 5895846
+ 1274924 words of memory out of 5000000
+ 52002 multiletter control sequences out of 15000+600000
+ 538777 words of font info for 75 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 63i,9n,115p,10105b,425s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on eql_mcjuan.pdf (6 pages).
