@@ -96,9 +96,7 @@ Now suppose that given a function $f(x)$, we wish to find a particular antideriv
 ::: {#exm:particular_derivatives}
 1.  Given that $F'(x)=2x$ and $F(2)=6$, find $F(x)$.
 
-    **Solution**.
-
-    Since $F'(x)=2x$, we have $$
+**Solution**. Since $F'(x)=2x$, we have $$
     F(x)=\int 2xdx=x^2+C.
     $$The initial condition $F(2)=6$ implies that $F(2)=2^2+C=6$. We get $C=2$. Therefore, the particular antiderivative that we wish to find is $$
     F(x)=x^2+2.
@@ -208,7 +206,7 @@ $$
 \end{aligned}
 $$
 
-It is imperative to remember the behavior of each function introduced in this course; doing so will help us in computing new limits. Recalling the graphs of our new functions will be helpful in remembering their behavior. For instance, using the graph of $f(x)=\log_a x$, where $0\lt a \lt 1$, one sees that $\displaystyle\lim_{x \to 0^+}\log_a x=+\infty$. Thus if $f(x)$ approaches $0$ through positive values $x$ approaches $k$, then $$
+It is imperative to remember the behavior of each function introduced in this course; doing so will help us in computing new limits. Recalling the graphs of our new functions will be helpful in remembering their behavior. For instance, using the graph of $f(x)=\log_a x$, where \$ 0\< a \< 1\$, one sees that $\displaystyle\lim_{x \to 0^+}\log_a x=+\infty$. Thus if $f(x)$ approaches $0$ through positive values $x$ approaches $k$, then $$
 \displaystyle\lim_{x \to k}\log_a[f(x)]=\displaystyle\lim_{y \to 0^+}\log_a y=+\infty.
 $$
 :::
@@ -218,17 +216,19 @@ $$
 
 However, $\displaystyle\lim_{x \to +\infty}{\frac{D_x(x+\sin x)}{D_x(x)}=\displaystyle\lim_{x \to +\infty}\frac{1+\cos x}{1}}$ does not exist $\cos x$ does not approach any particular value as $x\to +\infty$. Neither does $1+\cos x$ grow without bound. Thus, L'Hospital's Rule does not apply.
 
-We therefore need to employ other techniques. In particular, notice that any $x\gt 0$, the following hold: $$
+We therefore need to employ other techniques. In particular, notice that any $x> 0$, the following hold:
+
+$$
 \begin{aligned}
-x-1 \le x+\sin x \le x+1 \\
-\iff \frac {x-1} x\le \frac{x+\sin x}x  \le \frac{x+1}x\\
+x-1 & \le x+\sin x \le x+1 \\
+\Leftrightarrow\frac{x-1}{x} & \le x+\sin x \le \frac {x+1}{x}\\
 \end{aligned}
 $$
 
 Also, $\displaystyle\lim_{x\to+\infty}{\frac{x-1}{x}=1=\displaystyle\lim_{x\to+\infty}{\frac{x+1}{x}}}$, so by the Squeeze Theorem, $\displaystyle\lim_{x\to+\infty}{\frac{x+\sin x}{x}=1}$.
 :::
 
-::: {#htm:indeterminate forms} **Indeterminate Forms of Type** $0\cdot \infty$ and $\infty -\infty$ :::
+**Indeterminate Forms of Type** $0\cdot \infty$ and $\infty -\infty$
 
 ::: {#htm:definition}
 **Definition**
@@ -256,16 +256,11 @@ $$ and $\displaystyle\lim_{x\to a}{g(x)=+\infty}$.
 
 1.  If $\displaystyle\lim_{x\to a}{f(x)=0}$ and $\displaystyle\lim_{x\to a}{g(x)=+\infty}$ or $-\infty$, write $\displaystyle\lim_{x\to a}{f(x)g(x)}$ as:
 
-```{=html}
-<!-- -->
-```
-(a) $\displaystyle\lim_{x\to a}{\frac{f(x)}{\frac{1}{g(x)}}}$, which is indeterminate of type $\frac{0}{0}$, or
-(b) $\displaystyle\lim_{x\to a}{\frac{g(x)}{\frac{1}{f(x)}}}$, which is indeterminate of type $\frac{\infty}{\infty}$ and apply L'Hospital's Rule
+2.  $\displaystyle\lim_{x\to a}{\frac{f(x)}{\frac{1}{g(x)}}}$, which is indeterminate of type $\frac{0}{0}$, or
 
-```{=html}
-<!-- -->
-```
-2.  If $\displaystyle\lim_{x\to a}{f(x)+g(x)}$ is indeterminate of type $\infty - \infty$, rewrite $f(x)+g(x)$ as a single expression to obtain an indeterminate form of type $\frac{0}{0}$ or $\frac{\infty}{\infty}$ and apply L'Hospital's Rule.
+3.  $\displaystyle\lim_{x\to a}{\frac{g(x)}{\frac{1}{f(x)}}}$, which is indeterminate of type $\frac{\infty}{\infty}$ and apply L'Hospital's Rule
+
+4.  If $\displaystyle\lim_{x\to a}{f(x)+g(x)}$ is indeterminate of type $\infty - \infty$, rewrite $f(x)+g(x)$ as a single expression to obtain an indeterminate form of type $\frac{0}{0}$ or $\frac{\infty}{\infty}$ and apply L'Hospital's Rule.
 :::
 
 ::: {#exm:example}
@@ -292,9 +287,10 @@ $$
 $$
 :::
 
-###Indeterminate Forms of Type $1^\infty$, $0^\infty$ and $\infty ^0$
+### Indeterminate Forms of Type
 
-<div>
+::: {#htm:indeterminateforms}
+**Indeterminate Forms of Type** $1^\infty$, $0^\infty$ and $\infty ^0$
 
 **Definition** Let $f$ be a nonconstant function. The $\displaystyle\lim_{x\to a}{f(x)^{g(x)}}$ is an indeterminate form of type
 
@@ -303,10 +299,6 @@ $$
 2.  $0^\infty$ if $\displaystyle\lim_{x\to a}{f(x)=0}$, through positive values, and $\displaystyle\lim_{x\to a}{g(x)=0}$.
 
 3.  $\infty ^0$ if $\displaystyle\lim_{x\to a}{f(x)=+\infty}$ and $\displaystyle\lim_{x\to a}{g(x)=0}$.
-
-</div>
-
-<div>
 
 **Remark** If $\displaystyle\lim_{x\to a}{f(x)^{g(x)}}$ is indeterminate of type $1^\infty$, $0^\infty$ and $\infty ^0$, we write
 
@@ -320,9 +312,7 @@ $$ and evaluate $\displaystyle\lim_{x\to a}{g(x) \ln [f(x)]}$ first. Then, if
 
 3.  $\displaystyle\lim_{x\to a}{g(x) \ln [f(x)]}=-\infty$, then $\displaystyle\lim_{x\to a}{f(x)^{g(x)}}=0$.
 
-</div>
-
-::: {#exm: example} **Example** Evaluate the following limits.
+**Example** Evaluate the following limits.
 
 1.  $\displaystyle\lim_{x\to 0^+}{x^{\sin x}}$ $0^0$ **Solution**
 
@@ -342,6 +332,5 @@ $$
 \begin{aligned}
 \displaystyle\lim_{x\to +\infty}{2x ln \left(1-\frac{3}{2}\right)}\\&=\displaystyle\lim_{x\to +\infty}{\frac{ln \left(1-\frac{3}{x}\right)}{\frac{1}{2x}}}\\&=\displaystyle\lim_{x\to +\infty}{\frac{1}{1-\frac{3}{x}}}\cdot \left(\frac{3}{x^2}\right)\over-\frac{1}{2x^2}\\&=\displaystyle\lim_{x\to +\infty}{\frac{-6}{1-\frac{3}{x}}}\\&=-6.
 \end{aligned}
-$$
-
-Hence, $\displaystyle\lim_{x\to +\infty}{\left(1-\frac{3}{x}\right)^{2x}}=e^{-6}$. :::
+$$ Hence, $\displaystyle\lim_{x\to +\infty}{\left(1-\frac{3}{x}\right)^{2x}}=e^{-6}$.
+:::
