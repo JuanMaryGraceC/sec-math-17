@@ -1,0 +1,2645 @@
+---
+title: "R for Data Science (2e):Activity in Sec Math 17"
+author: "Mary Grace Juan"
+format: html
+editor: visual
+---
+
+# **1 Introduction**
+
+## **1.1 What you will learn**
+
+![](RforDSpics/rfordspic1.png){fig-align="center"}
+
+### **1.4.3 The tidyverse**
+
+```{r}
+install.packages("tidyverse")
+```
+
+```{r}
+library(tidyverse)
+#> ── Attaching core tidyverse packages ───────────────────── tidyverse 2.0.0 ──
+#> ✔ dplyr     1.1.3     ✔ readr     2.1.4
+#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
+#> ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+#> ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+#> ✔ purrr     1.0.2     
+#> ── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+```
+
+### **1.4.4 Other packages**
+
+```{r}
+install.packages(
+  c("arrow", "babynames", "curl", "duckdb", "gapminder", 
+    "ggrepel", "ggridges", "ggthemes", "hexbin", "janitor", "Lahman", 
+    "leaflet", "maps", "nycflights13", "openxlsx", "palmerpenguins", 
+    "repurrrsive", "tidymodels", "writexl")
+  )
+```
+
+```{r}
+install.packages("ggrepel")
+library(ggrepel)
+#> Error in library(ggrepel) : there is no package called ‘ggrepel’
+```
+
+## **1.5 Running R code**
+
+```{r}
+1 + 2
+#> [1] 3
+```
+
+# **2 Data visualization**
+
+### **2.1.1 Prerequisites**
+
+```{r}
+library(tidyverse)
+#> ── Attaching core tidyverse packages ───────────────────── tidyverse 2.0.0 ──
+#> ✔ dplyr     1.1.3     ✔ readr     2.1.4
+#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
+#> ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+#> ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+#> ✔ purrr     1.0.2     
+#> ── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+```
+
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+```{r}
+library(palmerpenguins)
+library(ggthemes)
+```
+
+### **2.2.1 The `penguins` data frame**
+
+```{r}
+penguins
+#> # A tibble: 344 × 8
+#>   species island    bill_length_mm bill_depth_mm flipper_length_mm
+#>   <fct>   <fct>              <dbl>         <dbl>             <int>
+#> 1 Adelie  Torgersen           39.1          18.7               181
+#> 2 Adelie  Torgersen           39.5          17.4               186
+#> 3 Adelie  Torgersen           40.3          18                 195
+#> 4 Adelie  Torgersen           NA            NA                  NA
+#> 5 Adelie  Torgersen           36.7          19.3               193
+#> 6 Adelie  Torgersen           39.3          20.6               190
+#> # ℹ 338 more rows
+#> # ℹ 3 more variables: body_mass_g <int>, sex <fct>, year <int>
+```
+
+```{r}
+glimpse(penguins)
+#> Rows: 344
+#> Columns: 8
+#> $ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, A…
+#> $ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torge…
+#> $ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.…
+#> $ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.…
+#> $ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, …
+#> $ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 347…
+#> $ sex               <fct> male, female, female, NA, female, male, female, m…
+#> $ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…
+```
+
+### **2.2.3 Creating a ggplot**
+
+```{r}
+ggplot(data = penguins)
+```
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+)
+```
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point()
+#> Warning: Removed 2 rows containing missing values (`geom_point()`).
+```
+
+### **2.2.4 Adding aesthetics and layers**
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species)
+) +
+  geom_point()
+```
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species)
+) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point(mapping = aes(color = species)) +
+  geom_smooth(method = "lm")
+```
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point(mapping = aes(color = species, shape = species)) +
+  geom_smooth(method = "lm")
+```
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point(aes(color = species, shape = species)) +
+  geom_smooth(method = "lm") +
+  labs(
+    title = "Body mass and flipper length",
+    subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+    x = "Flipper length (mm)", y = "Body mass (g)",
+    color = "Species", shape = "Species"
+  ) +
+  scale_color_colorblind()
+```
+
+### **2.2.5 Exercises**
+
+```{r}
+ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = body_mass_g)) + 
+  geom_point()+
+  geom_point()
+```
+
+```{r}
+#| warning: false
+#| echo: false
+#| message: false
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point() +
+  geom_smooth()
+
+ggplot() +
+  geom_point(
+    data = penguins,
+    mapping = aes(x = flipper_length_mm, y = body_mass_g, color = bill_depth_mm)
+  ) +
+  geom_smooth(
+    data = penguins,
+    mapping = aes(x = flipper_length_mm, y = body_mass_g, color = bill_depth_mm)
+  )
+```
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g, color = island)
+) +
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point() +
+  geom_smooth()
+
+ggplot() +
+  geom_point(
+    data = penguins,
+    mapping = aes(x = flipper_length_mm, y = body_mass_g)
+  ) +
+  geom_smooth(
+    data = penguins,
+    mapping = aes(x = flipper_length_mm, y = body_mass_g)
+  )
+```
+
+## **2.3 ggplot2 calls**
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point()
+```
+
+```{r}
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) + 
+  geom_point()
+```
+
+```{r}
+penguins |> 
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g)) + 
+  geom_point()
+```
+
+### **2.4.1 A categorical variable**
+
+```{r}
+ggplot(penguins, aes(x = species)) +
+  geom_bar()
+```
+
+```{r}
+ggplot(penguins, aes(x = fct_infreq(species))) +
+  geom_bar()
+```
+
+### **2.4.2 A numerical variable**
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 200)
+```
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 20)
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 2000)
+```
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_density()
+#> Warning: Removed 2 rows containing non-finite values (`stat_density()`).
+```
+
+### **2.4.3 Exercises**
+
+```{r}
+ggplot(penguins, aes(x = species)) +
+  geom_bar(color = "red")
+
+ggplot(penguins, aes(x = species)) +
+  geom_bar(fill = "red")
+```
+
+### **2.5.1 A numerical and a categorical variable**
+
+```{r}
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
+  geom_boxplot()
+```
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g, color = species)) +
+  geom_density(linewidth = 0.75)
+```
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g, color = species, fill = species)) +
+  geom_density(alpha = 0.5)
+```
+
+### **2.5.2 Two categorical variables**
+
+```{r}
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar()
+```
+
+```{r}
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar(position = "fill")
+```
+
+### **2.5.3 Two numerical variables**
+
+```{r}
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+```
+
+### **2.5.4 Three or more variables**
+
+```{r}
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species, shape = island))
+```
+
+```{r}
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species, shape = species)) +
+  facet_wrap(~island)
+```
+
+### **2.5.5 Exercises**
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(
+    x = bill_length_mm, y = bill_depth_mm, 
+    color = species, shape = species
+  )
+) +
+  geom_point() +
+  labs(color = "Species")
+```
+
+```{r}
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar(position = "fill")
+ggplot(penguins, aes(x = species, fill = island)) +
+  geom_bar(position = "fill")
+```
+
+## **2.6 Saving your plots**
+
+```{r}
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+ggsave(filename = "penguin-plot.png")
+```
+
+### **2.6.1 Exercises**
+
+```{r}
+ggplot(mpg, aes(x = class)) +
+  geom_bar()
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point()
+ggsave("mpg-plot.png")
+```
+
+## **2.7 Common problems**
+
+```{r}
+ggplot(data = mpg) 
++ geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+# **3 Workflow: basics**
+
+## **3.1 Coding basics**
+
+```{r}
+1 / 200 * 30
+#> [1] 0.15
+(59 + 73 + 2) / 3
+#> [1] 44.66667
+sin(pi / 2)
+#> [1] 1
+```
+
+```{r}
+x <- 3 * 4
+```
+
+```{r}
+primes <- c(2, 3, 5, 7, 11, 13)
+```
+
+```{r}
+primes * 2
+#> [1]  4  6 10 14 22 26
+primes - 1
+#> [1]  1  2  4  6 10 12
+```
+
+## **3.2 Comments**
+
+```{r}
+# create vector of primes
+primes <- c(2, 3, 5, 7, 11, 13)
+
+# multiply primes by 2
+primes * 2
+#> [1]  4  6 10 14 22 26
+```
+
+## **3.3 What\'s in a name?**
+
+```{r}
+x
+#> [1] 12
+```
+
+```{r}
+this_is_a_really_long_name <- 2.5
+```
+
+```{r}
+r_rocks <- 2^3
+```
+
+## **3.4 Calling functions**
+
+```{r}
+seq(from = 1, to = 10)
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```{r}
+seq(1, 10)
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```{r}
+x <- "hello world"
+```
+
+# **4 Data transformation**
+
+### **4.1.1 Prerequisites**
+
+```{r}
+library(nycflights13)
+library(tidyverse)
+#> ── Attaching core tidyverse packages ───────────────────── tidyverse 2.0.0 ──
+#> ✔ dplyr     1.1.3     ✔ readr     2.1.4
+#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
+#> ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+#> ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+#> ✔ purrr     1.0.2     
+#> ── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+```
+
+### **4.1.2 nycflights13**
+
+```{r}
+flights
+#> # A tibble: 336,776 × 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 336,770 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+```{r}
+glimpse(flights)
+#> Rows: 336,776
+#> Columns: 19
+#> $ year           <int> 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013…
+#> $ month          <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+#> $ day            <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+#> $ dep_time       <int> 517, 533, 542, 544, 554, 554, 555, 557, 557, 558, 55…
+#> $ sched_dep_time <int> 515, 529, 540, 545, 600, 558, 600, 600, 600, 600, 60…
+#> $ dep_delay      <dbl> 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2,…
+#> $ arr_time       <int> 830, 850, 923, 1004, 812, 740, 913, 709, 838, 753, 8…
+#> $ sched_arr_time <int> 819, 830, 850, 1022, 837, 728, 854, 723, 846, 745, 8…
+#> $ arr_delay      <dbl> 11, 20, 33, -18, -25, 12, 19, -14, -8, 8, -2, -3, 7,…
+#> $ carrier        <chr> "UA", "UA", "AA", "B6", "DL", "UA", "B6", "EV", "B6"…
+#> $ flight         <int> 1545, 1714, 1141, 725, 461, 1696, 507, 5708, 79, 301…
+#> $ tailnum        <chr> "N14228", "N24211", "N619AA", "N804JB", "N668DN", "N…
+#> $ origin         <chr> "EWR", "LGA", "JFK", "JFK", "LGA", "EWR", "EWR", "LG…
+#> $ dest           <chr> "IAH", "IAH", "MIA", "BQN", "ATL", "ORD", "FLL", "IA…
+#> $ air_time       <dbl> 227, 227, 160, 183, 116, 150, 158, 53, 140, 138, 149…
+#> $ distance       <dbl> 1400, 1416, 1089, 1576, 762, 719, 1065, 229, 944, 73…
+#> $ hour           <dbl> 5, 5, 5, 5, 6, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 6, 6…
+#> $ minute         <dbl> 15, 29, 40, 45, 0, 58, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59…
+#> $ time_hour      <dttm> 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013-01-0…
+```
+
+### **4.1.3 dplyr basics**
+
+```{r}
+flights |>
+  filter(dest == "IAH") |> 
+  group_by(year, month, day) |> 
+  summarize(
+    arr_delay = mean(arr_delay, na.rm = TRUE)
+  )
+```
+
+### **4.2.1 `filter()`**
+
+```{r}
+flights |> 
+  filter(dep_delay > 120)
+#> # A tibble: 9,723 × 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      848           1835       853     1001           1950
+#> 2  2013     1     1      957            733       144     1056            853
+#> 3  2013     1     1     1114            900       134     1447           1222
+#> 4  2013     1     1     1540           1338       122     2020           1825
+#> 5  2013     1     1     1815           1325       290     2120           1542
+#> 6  2013     1     1     1842           1422       260     1958           1535
+#> # ℹ 9,717 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+```{r}
+# Flights that departed on January 1
+flights |> 
+  filter(month == 1 & day == 1)
+#> # A tibble: 842 × 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 836 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+
+# Flights that departed in January or February
+flights |> 
+  filter(month == 1 | month == 2)
+#> # A tibble: 51,955 × 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 51,949 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+```{r}
+# A shorter way to select flights that departed in January or February
+flights |> 
+  filter(month %in% c(1, 2))
+#> # A tibble: 51,955 × 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 51,949 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+```{r}
+jan1 <- flights |> 
+  filter(month == 1 & day == 1)
+```
+
+### **4.2.2 Common mistakes**
+
+```{r}
+flights |> 
+  filter(month == 1)
+#> Error in `filter()`:
+#> ! We detected a named input.
+#> ℹ This usually means that you've used `=` instead of `==`.
+#> ℹ Did you mean `month == 1`?
+```
+
+```{r}
+flights |> 
+  filter(month == 1 | 2)
+```
+
+### **4.2.3 `arrange()`**
+
+```{r}
+flights |> 
+  arrange(year, month, day, dep_time)
+#> # A tibble: 336,776 × 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 336,770 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+```{r}
+flights |> 
+  arrange(desc(dep_delay))
+#> # A tibble: 336,776 × 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     9      641            900      1301     1242           1530
+#> 2  2013     6    15     1432           1935      1137     1607           2120
+#> 3  2013     1    10     1121           1635      1126     1239           1810
+#> 4  2013     9    20     1139           1845      1014     1457           2210
+#> 5  2013     7    22      845           1600      1005     1044           1815
+#> 6  2013     4    10     1100           1900       960     1342           2211
+#> # ℹ 336,770 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+### **4.2.4 `distinct()`**
+
+```{r}
+# Remove duplicate rows, if any
+flights |> 
+  distinct()
+#> # A tibble: 336,776 × 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 336,770 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+
+# Find all unique origin and destination pairs
+flights |> 
+  distinct(origin, dest)
+#> # A tibble: 224 × 2
+#>   origin dest 
+#>   <chr>  <chr>
+#> 1 EWR    IAH  
+#> 2 LGA    IAH  
+#> 3 JFK    MIA  
+#> 4 JFK    BQN  
+#> 5 LGA    ATL  
+#> 6 EWR    ORD  
+#> # ℹ 218 more rows
+```
+
+```{r}
+flights |> 
+  distinct(origin, dest, .keep_all = TRUE)
+#> # A tibble: 224 × 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 218 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+```{r}
+flights |>
+  count(origin, dest, sort = TRUE)
+#> # A tibble: 224 × 3
+#>   origin dest      n
+#>   <chr>  <chr> <int>
+#> 1 JFK    LAX   11262
+#> 2 LGA    ATL   10263
+#> 3 LGA    ORD    8857
+#> 4 JFK    SFO    8204
+#> 5 LGA    CLT    6168
+#> 6 EWR    ORD    6100
+#> # ℹ 218 more rows
+```
+
+### **4.3.1 `mutate()`**
+
+```{r}
+flights |> 
+  mutate(
+    gain = dep_delay - arr_delay,
+    speed = distance / air_time * 60
+  )
+#> # A tibble: 336,776 × 21
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 336,770 more rows
+#> # ℹ 13 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+```{r}
+flights |> 
+  mutate(
+    gain = dep_delay - arr_delay,
+    speed = distance / air_time * 60,
+    .before = 1
+  )
+#> # A tibble: 336,776 × 21
+#>    gain speed  year month   day dep_time sched_dep_time dep_delay arr_time
+#>   <dbl> <dbl> <int> <int> <int>    <int>          <int>     <dbl>    <int>
+#> 1    -9  370.  2013     1     1      517            515         2      830
+#> 2   -16  374.  2013     1     1      533            529         4      850
+#> 3   -31  408.  2013     1     1      542            540         2      923
+#> 4    17  517.  2013     1     1      544            545        -1     1004
+#> 5    19  394.  2013     1     1      554            600        -6      812
+#> 6   -16  288.  2013     1     1      554            558        -4      740
+#> # ℹ 336,770 more rows
+#> # ℹ 12 more variables: sched_arr_time <int>, arr_delay <dbl>, …
+```
+
+```{r}
+flights |> 
+  mutate(
+    gain = dep_delay - arr_delay,
+    speed = distance / air_time * 60,
+    .after = day
+  )
+```
+
+```{r}
+flights |> 
+  mutate(
+    gain = dep_delay - arr_delay,
+    hours = air_time / 60,
+    gain_per_hour = gain / hours,
+    .keep = "used"
+  )
+```
+
+### **4.3.2 `select()`** 
+
+```{r}
+flights |> 
+  select(year, month, day)
+```
+
+```{r}
+flights |> 
+  select(year:day)
+```
+
+```{r}
+flights |> 
+  select(!year:day)
+```
+
+```{r}
+flights |> 
+  select(where(is.character))
+```
+
+```{r}
+flights |> 
+  select(tail_num = tailnum)
+#> # A tibble: 336,776 × 1
+#>   tail_num
+#>   <chr>   
+#> 1 N14228  
+#> 2 N24211  
+#> 3 N619AA  
+#> 4 N804JB  
+#> 5 N668DN  
+#> 6 N39463  
+#> # ℹ 336,770 more rows
+```
+
+### **4.3.3 `rename()`**
+
+```{r}
+flights |> 
+  rename(tail_num = tailnum)
+#> # A tibble: 336,776 × 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 336,770 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+### **4.3.4 `relocate()`**
+
+```{r}
+flights |> 
+  relocate(time_hour, air_time)
+#> # A tibble: 336,776 × 19
+#>   time_hour           air_time  year month   day dep_time sched_dep_time
+#>   <dttm>                 <dbl> <int> <int> <int>    <int>          <int>
+#> 1 2013-01-01 05:00:00      227  2013     1     1      517            515
+#> 2 2013-01-01 05:00:00      227  2013     1     1      533            529
+#> 3 2013-01-01 05:00:00      160  2013     1     1      542            540
+#> 4 2013-01-01 05:00:00      183  2013     1     1      544            545
+#> 5 2013-01-01 06:00:00      116  2013     1     1      554            600
+#> 6 2013-01-01 05:00:00      150  2013     1     1      554            558
+#> # ℹ 336,770 more rows
+#> # ℹ 12 more variables: dep_delay <dbl>, arr_time <int>, …
+```
+
+```{r}
+flights |> 
+  relocate(year:dep_time, .after = time_hour)
+flights |> 
+  relocate(starts_with("arr"), .before = dep_time)
+```
+
+## **4.4 The pipe**
+
+```{r}
+flights |> 
+  filter(dest == "IAH") |> 
+  mutate(speed = distance / air_time * 60) |> 
+  select(year:day, dep_time, carrier, flight, speed) |> 
+  arrange(desc(speed))
+#> # A tibble: 7,198 × 7
+#>    year month   day dep_time carrier flight speed
+#>   <int> <int> <int>    <int> <chr>    <int> <dbl>
+#> 1  2013     7     9      707 UA         226  522.
+#> 2  2013     8    27     1850 UA        1128  521.
+#> 3  2013     8    28      902 UA        1711  519.
+#> 4  2013     8    28     2122 UA        1022  519.
+#> 5  2013     6    11     1628 UA        1178  515.
+#> 6  2013     8    27     1017 UA         333  515.
+#> # ℹ 7,192 more rows
+```
+
+```{r}
+arrange(
+  select(
+    mutate(
+      filter(
+        flights, 
+        dest == "IAH"
+      ),
+      speed = distance / air_time * 60
+    ),
+    year:day, dep_time, carrier, flight, speed
+  ),
+  desc(speed)
+)
+```
+
+```{r}
+flights1 <- filter(flights, dest == "IAH")
+flights2 <- mutate(flights1, speed = distance / air_time * 60)
+flights3 <- select(flights2, year:day, dep_time, carrier, flight, speed)
+arrange(flights3, desc(speed))
+```
+
+```{r}
+library(tidyverse)
+
+mtcars %>% 
+  group_by(cyl) %>%
+  summarize(n = n())
+```
+
+### **4.5.1 `group_by()`**
+
+```{r}
+flights |> 
+  group_by(month)
+#> # A tibble: 336,776 × 19
+#> # Groups:   month [12]
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 336,770 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+### **4.5.2 `summarize()`**
+
+```{r}
+flights |> 
+  group_by(month) |> 
+  summarize(
+    avg_delay = mean(dep_delay)
+  )
+#> # A tibble: 12 × 2
+#>   month avg_delay
+#>   <int>     <dbl>
+#> 1     1        NA
+#> 2     2        NA
+#> 3     3        NA
+#> 4     4        NA
+#> 5     5        NA
+#> 6     6        NA
+#> # ℹ 6 more rows
+```
+
+```{r}
+flights |> 
+  group_by(month) |> 
+  summarize(
+    delay = mean(dep_delay, na.rm = TRUE)
+  )
+#> # A tibble: 12 × 2
+#>   month delay
+#>   <int> <dbl>
+#> 1     1  10.0
+#> 2     2  10.8
+#> 3     3  13.2
+#> 4     4  13.9
+#> 5     5  13.0
+#> 6     6  20.8
+#> # ℹ 6 more rows
+```
+
+```{r}
+flights |> 
+  group_by(month) |> 
+  summarize(
+    delay = mean(dep_delay, na.rm = TRUE), 
+    n = n()
+  )
+#> # A tibble: 12 × 3
+#>   month delay     n
+#>   <int> <dbl> <int>
+#> 1     1  10.0 27004
+#> 2     2  10.8 24951
+#> 3     3  13.2 28834
+#> 4     4  13.9 28330
+#> 5     5  13.0 28796
+#> 6     6  20.8 28243
+#> # ℹ 6 more rows
+```
+
+### **4.5.3 The `slice_` functions**
+
+```{r}
+flights |> 
+  group_by(dest) |> 
+  slice_max(arr_delay, n = 1) |>
+  relocate(dest)
+#> # A tibble: 108 × 19
+#> # Groups:   dest [105]
+#>   dest   year month   day dep_time sched_dep_time dep_delay arr_time
+#>   <chr> <int> <int> <int>    <int>          <int>     <dbl>    <int>
+#> 1 ABQ    2013     7    22     2145           2007        98      132
+#> 2 ACK    2013     7    23     1139            800       219     1250
+#> 3 ALB    2013     1    25      123           2000       323      229
+#> 4 ANC    2013     8    17     1740           1625        75     2042
+#> 5 ATL    2013     7    22     2257            759       898      121
+#> 6 AUS    2013     7    10     2056           1505       351     2347
+#> # ℹ 102 more rows
+#> # ℹ 11 more variables: sched_arr_time <int>, arr_delay <dbl>, …
+```
+
+### **4.5.4 Grouping by multiple variables**
+
+```{r}
+daily <- flights |>  
+  group_by(year, month, day)
+daily
+#> # A tibble: 336,776 × 19
+#> # Groups:   year, month, day [365]
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 336,770 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+```{r}
+daily_flights <- daily |> 
+  summarize(n = n())
+#> `summarise()` has grouped output by 'year', 'month'. You can override using
+#> the `.groups` argument.
+```
+
+```{r}
+daily_flights <- daily |> 
+  summarize(
+    n = n(), 
+    .groups = "drop_last"
+  )
+```
+
+### **4.5.5 Ungrouping**
+
+```{r}
+daily |> 
+  ungroup()
+#> # A tibble: 336,776 × 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+#> 1  2013     1     1      517            515         2      830            819
+#> 2  2013     1     1      533            529         4      850            830
+#> 3  2013     1     1      542            540         2      923            850
+#> 4  2013     1     1      544            545        -1     1004           1022
+#> 5  2013     1     1      554            600        -6      812            837
+#> 6  2013     1     1      554            558        -4      740            728
+#> # ℹ 336,770 more rows
+#> # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>, …
+```
+
+```{r}
+daily |> 
+  ungroup() |>
+  summarize(
+    avg_delay = mean(dep_delay, na.rm = TRUE), 
+    flights = n()
+  )
+#> # A tibble: 1 × 2
+#>   avg_delay flights
+#>       <dbl>   <int>
+#> 1      12.6  336776
+```
+
+### **4.5.6 `.by`**
+
+```{r}
+flights |> 
+  summarize(
+    delay = mean(dep_delay, na.rm = TRUE), 
+    n = n(),
+    .by = month
+  )
+```
+
+```{r}
+flights |> 
+  summarize(
+    delay = mean(dep_delay, na.rm = TRUE), 
+    n = n(),
+    .by = c(origin, dest)
+  )
+```
+
+### **4.5.7 Exercises**
+
+```{r}
+df <- tibble(
+  x = 1:5,
+  y = c("a", "b", "a", "a", "b"),
+  z = c("K", "K", "L", "L", "K")
+)
+```
+
+```{r}
+df |>
+  group_by(y)
+```
+
+```{r}
+df |>
+  arrange(y)
+```
+
+```{r}
+df |>
+  group_by(y) |>
+  summarize(mean_x = mean(x))
+```
+
+```{r}
+df |>
+  group_by(y, z) |>
+  summarize(mean_x = mean(x))
+```
+
+```{r}
+df |>
+  group_by(y, z) |>
+  summarize(mean_x = mean(x), .groups = "drop")
+```
+
+```{r}
+df |>
+  group_by(y, z) |>
+  summarize(mean_x = mean(x))
+
+df |>
+  group_by(y, z) |>
+  mutate(mean_x = mean(x))
+```
+
+## **4.6 Case study: aggregates and sample size**
+
+```{r}
+batters <- Lahman::Batting |> 
+  group_by(playerID) |> 
+  summarize(
+    performance = sum(H, na.rm = TRUE) / sum(AB, na.rm = TRUE),
+    n = sum(AB, na.rm = TRUE)
+  )
+batters
+#> # A tibble: 20,469 × 3
+#>   playerID  performance     n
+#>   <chr>           <dbl> <int>
+#> 1 aardsda01      0          4
+#> 2 aaronha01      0.305  12364
+#> 3 aaronto01      0.229    944
+#> 4 aasedo01       0          5
+#> 5 abadan01       0.0952    21
+#> 6 abadfe01       0.111      9
+#> # ℹ 20,463 more rows
+```
+
+```{r}
+batters |> 
+  filter(n > 100) |> 
+  ggplot(aes(x = n, y = performance)) +
+  geom_point(alpha = 1 / 10) + 
+  geom_smooth(se = FALSE)
+```
+
+```{r}
+batters |> 
+  arrange(desc(performance))
+#> # A tibble: 20,469 × 3
+#>   playerID  performance     n
+#>   <chr>           <dbl> <int>
+#> 1 abramge01           1     1
+#> 2 alberan01           1     1
+#> 3 banisje01           1     1
+#> 4 bartocl01           1     1
+#> 5 bassdo01            1     1
+#> 6 birasst01           1     2
+#> # ℹ 20,463 more rows
+```
+
+# **5 Workflow: code style**
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+```
+
+## **5.1 Names**
+
+```{r}
+# Strive for:
+short_flights <- flights |> filter(air_time < 60)
+
+# Avoid:
+SHORTFLIGHTS <- flights |> filter(air_time < 60)
+```
+
+## **5.2 Spaces**
+
+```{r}
+# Strive for
+mean(x, na.rm = TRUE)
+
+# Avoid
+mean (x ,na.rm=TRUE)
+```
+
+```{r}
+flights |> 
+  mutate(
+    speed      = distance / air_time,
+    dep_hour   = dep_time %/% 100,
+    dep_minute = dep_time %%  100
+  )
+```
+
+## **5.3 Pipes**
+
+```{r}
+# Strive for 
+flights |>  
+  filter(!is.na(arr_delay), !is.na(tailnum)) |> 
+  count(dest)
+
+# Avoid
+flights|>filter(!is.na(arr_delay), !is.na(tailnum))|>count(dest)
+```
+
+```{r}
+# Strive for
+flights |>  
+  group_by(tailnum) |> 
+  summarize(
+    delay = mean(arr_delay, na.rm = TRUE),
+    n = n()
+  )
+
+# Avoid
+flights |>
+  group_by(
+    tailnum
+  ) |> 
+  summarize(delay = mean(arr_delay, na.rm = TRUE), n = n())
+```
+
+```{r}
+# Strive for 
+flights |>  
+  group_by(tailnum) |> 
+  summarize(
+    delay = mean(arr_delay, na.rm = TRUE),
+    n = n()
+  )
+
+# Avoid
+flights|>
+  group_by(tailnum) |> 
+  summarize(
+             delay = mean(arr_delay, na.rm = TRUE), 
+             n = n()
+           )
+
+# Avoid
+flights|>
+  group_by(tailnum) |> 
+  summarize(
+  delay = mean(arr_delay, na.rm = TRUE), 
+  n = n()
+  )
+```
+
+```{r}
+# This fits compactly on one line
+df |> mutate(y = x + 1)
+
+# While this takes up 4x as many lines, it's easily extended to 
+# more variables and more steps in the future
+df |> 
+  mutate(
+    y = x + 1
+  )
+```
+
+## **5.4 ggplot2**
+
+```{r}
+flights |> 
+  group_by(month) |> 
+  summarize(
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) |> 
+  ggplot(aes(x = month, y = delay)) +
+  geom_point() + 
+  geom_line()
+```
+
+```{r}
+flights |> 
+  group_by(dest) |> 
+  summarize(
+    distance = mean(distance),
+    speed = mean(distance / air_time, na.rm = TRUE)
+  ) |> 
+  ggplot(aes(x = distance, y = speed)) +
+  geom_smooth(
+    method = "loess",
+    span = 0.5,
+    se = FALSE, 
+    color = "white", 
+    linewidth = 4
+  ) +
+  geom_point()
+```
+
+## **5.5 Sectioning comments**
+
+```{r}
+# Load data --------------------------------------
+
+# Plot data --------------------------------------
+```
+
+## **5.6 Exercises**
+
+```{r}
+flights|>filter(dest=="IAH")|>group_by(year,month,day)|>summarize(n=n(),
+delay=mean(arr_delay,na.rm=TRUE))|>filter(n>10)
+
+flights|>filter(carrier=="UA",dest%in%c("IAH","HOU"),sched_dep_time>
+0900,sched_arr_time<2000)|>group_by(flight)|>summarize(delay=mean(
+arr_delay,na.rm=TRUE),cancelled=sum(is.na(arr_delay)),n=n())|>filter(n>10)
+```
+
+# **6 Data tidying**
+
+### **6.1.1 Prerequisites**
+
+```{r}
+library(tidyverse)
+```
+
+## **6.2 Tidy data**
+
+```{r}
+table1
+#> # A tibble: 6 × 4
+#>   country      year  cases population
+#>   <chr>       <dbl>  <dbl>      <dbl>
+#> 1 Afghanistan  1999    745   19987071
+#> 2 Afghanistan  2000   2666   20595360
+#> 3 Brazil       1999  37737  172006362
+#> 4 Brazil       2000  80488  174504898
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
+
+table2
+#> # A tibble: 12 × 4
+#>   country      year type           count
+#>   <chr>       <dbl> <chr>          <dbl>
+#> 1 Afghanistan  1999 cases            745
+#> 2 Afghanistan  1999 population  19987071
+#> 3 Afghanistan  2000 cases           2666
+#> 4 Afghanistan  2000 population  20595360
+#> 5 Brazil       1999 cases          37737
+#> 6 Brazil       1999 population 172006362
+#> # ℹ 6 more rows
+
+table3
+#> # A tibble: 6 × 3
+#>   country      year rate             
+#>   <chr>       <dbl> <chr>            
+#> 1 Afghanistan  1999 745/19987071     
+#> 2 Afghanistan  2000 2666/20595360    
+#> 3 Brazil       1999 37737/172006362  
+#> 4 Brazil       2000 80488/174504898  
+#> 5 China        1999 212258/1272915272
+#> 6 China        2000 213766/1280428583
+```
+
+```{r}
+# Compute rate per 10,000
+table1 |>
+  mutate(rate = cases / population * 10000)
+#> # A tibble: 6 × 5
+#>   country      year  cases population  rate
+#>   <chr>       <dbl>  <dbl>      <dbl> <dbl>
+#> 1 Afghanistan  1999    745   19987071 0.373
+#> 2 Afghanistan  2000   2666   20595360 1.29 
+#> 3 Brazil       1999  37737  172006362 2.19 
+#> 4 Brazil       2000  80488  174504898 4.61 
+#> 5 China        1999 212258 1272915272 1.67 
+#> 6 China        2000 213766 1280428583 1.67
+
+# Compute total cases per year
+table1 |> 
+  group_by(year) |> 
+  summarize(total_cases = sum(cases))
+#> # A tibble: 2 × 2
+#>    year total_cases
+#>   <dbl>       <dbl>
+#> 1  1999      250740
+#> 2  2000      296920
+
+# Visualize changes over time
+ggplot(table1, aes(x = year, y = cases)) +
+  geom_line(aes(group = country), color = "grey50") +
+  geom_point(aes(color = country, shape = country)) +
+  scale_x_continuous(breaks = c(1999, 2000)) # x-axis breaks at 1999 and 2000
+```
+
+### **6.3.1 Data in column names**
+
+```{r}
+billboard
+#> # A tibble: 317 × 79
+#>   artist       track               date.entered   wk1   wk2   wk3   wk4   wk5
+#>   <chr>        <chr>               <date>       <dbl> <dbl> <dbl> <dbl> <dbl>
+#> 1 2 Pac        Baby Don't Cry (Ke… 2000-02-26      87    82    72    77    87
+#> 2 2Ge+her      The Hardest Part O… 2000-09-02      91    87    92    NA    NA
+#> 3 3 Doors Down Kryptonite          2000-04-08      81    70    68    67    66
+#> 4 3 Doors Down Loser               2000-10-21      76    76    72    69    67
+#> 5 504 Boyz     Wobble Wobble       2000-04-15      57    34    25    17    17
+#> 6 98^0         Give Me Just One N… 2000-08-19      51    39    34    26    26
+#> # ℹ 311 more rows
+#> # ℹ 71 more variables: wk6 <dbl>, wk7 <dbl>, wk8 <dbl>, wk9 <dbl>, …
+```
+
+```{r}
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank"
+  )
+#> # A tibble: 24,092 × 5
+#>    artist track                   date.entered week   rank
+#>    <chr>  <chr>                   <date>       <chr> <dbl>
+#>  1 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk1      87
+#>  2 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk2      82
+#>  3 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk3      72
+#>  4 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk4      77
+#>  5 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk5      87
+#>  6 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk6      94
+#>  7 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk7      99
+#>  8 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk8      NA
+#>  9 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk9      NA
+#> 10 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk10     NA
+#> # ℹ 24,082 more rows
+```
+
+```{r}
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank",
+    values_drop_na = TRUE
+  )
+#> # A tibble: 5,307 × 5
+#>   artist track                   date.entered week   rank
+#>   <chr>  <chr>                   <date>       <chr> <dbl>
+#> 1 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk1      87
+#> 2 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk2      82
+#> 3 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk3      72
+#> 4 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk4      77
+#> 5 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk5      87
+#> 6 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk6      94
+#> # ℹ 5,301 more rows
+```
+
+```{r}
+billboard_longer <- billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank",
+    values_drop_na = TRUE
+  ) |> 
+  mutate(
+    week = parse_number(week)
+  )
+billboard_longer
+#> # A tibble: 5,307 × 5
+#>   artist track                   date.entered  week  rank
+#>   <chr>  <chr>                   <date>       <dbl> <dbl>
+#> 1 2 Pac  Baby Don't Cry (Keep... 2000-02-26       1    87
+#> 2 2 Pac  Baby Don't Cry (Keep... 2000-02-26       2    82
+#> 3 2 Pac  Baby Don't Cry (Keep... 2000-02-26       3    72
+#> 4 2 Pac  Baby Don't Cry (Keep... 2000-02-26       4    77
+#> 5 2 Pac  Baby Don't Cry (Keep... 2000-02-26       5    87
+#> 6 2 Pac  Baby Don't Cry (Keep... 2000-02-26       6    94
+#> # ℹ 5,301 more rows
+```
+
+```{r}
+billboard_longer |> 
+  ggplot(aes(x = week, y = rank, group = track)) + 
+  geom_line(alpha = 0.25) + 
+  scale_y_reverse()
+```
+
+### **6.3.2 How does pivoting work?**
+
+```{r}
+df <- tribble(
+  ~id,  ~bp1, ~bp2,
+   "A",  100,  120,
+   "B",  140,  115,
+   "C",  120,  125
+)
+```
+
+```{r}
+df |> 
+  pivot_longer(
+    cols = bp1:bp2,
+    names_to = "measurement",
+    values_to = "value"
+  )
+#> # A tibble: 6 × 3
+#>   id    measurement value
+#>   <chr> <chr>       <dbl>
+#> 1 A     bp1           100
+#> 2 A     bp2           120
+#> 3 B     bp1           140
+#> 4 B     bp2           115
+#> 5 C     bp1           120
+#> 6 C     bp2           125
+```
+
+### **6.3.3 Many variables in column names**
+
+```{r}
+who2
+#> # A tibble: 7,240 × 58
+#>   country      year sp_m_014 sp_m_1524 sp_m_2534 sp_m_3544 sp_m_4554
+#>   <chr>       <dbl>    <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+#> 1 Afghanistan  1980       NA        NA        NA        NA        NA
+#> 2 Afghanistan  1981       NA        NA        NA        NA        NA
+#> 3 Afghanistan  1982       NA        NA        NA        NA        NA
+#> 4 Afghanistan  1983       NA        NA        NA        NA        NA
+#> 5 Afghanistan  1984       NA        NA        NA        NA        NA
+#> 6 Afghanistan  1985       NA        NA        NA        NA        NA
+#> # ℹ 7,234 more rows
+#> # ℹ 51 more variables: sp_m_5564 <dbl>, sp_m_65 <dbl>, sp_f_014 <dbl>, …
+```
+
+```{r}
+who2 |> 
+  pivot_longer(
+    cols = !(country:year),
+    names_to = c("diagnosis", "gender", "age"), 
+    names_sep = "_",
+    values_to = "count"
+  )
+#> # A tibble: 405,440 × 6
+#>   country      year diagnosis gender age   count
+#>   <chr>       <dbl> <chr>     <chr>  <chr> <dbl>
+#> 1 Afghanistan  1980 sp        m      014      NA
+#> 2 Afghanistan  1980 sp        m      1524     NA
+#> 3 Afghanistan  1980 sp        m      2534     NA
+#> 4 Afghanistan  1980 sp        m      3544     NA
+#> 5 Afghanistan  1980 sp        m      4554     NA
+#> 6 Afghanistan  1980 sp        m      5564     NA
+#> # ℹ 405,434 more rows
+```
+
+### **6.3.4 Data and variable names in the column headers**
+
+```{r}
+household
+#> # A tibble: 5 × 5
+#>   family dob_child1 dob_child2 name_child1 name_child2
+#>    <int> <date>     <date>     <chr>       <chr>      
+#> 1      1 1998-11-26 2000-01-29 Susan       Jose       
+#> 2      2 1996-06-22 NA         Mark        <NA>       
+#> 3      3 2002-07-11 2004-04-05 Sam         Seth       
+#> 4      4 2004-10-10 2009-08-27 Craig       Khai       
+#> 5      5 2000-12-05 2005-02-28 Parker      Gracie
+```
+
+```{r}
+household |> 
+  pivot_longer(
+    cols = !family, 
+    names_to = c(".value", "child"), 
+    names_sep = "_", 
+    values_drop_na = TRUE
+  )
+#> # A tibble: 9 × 4
+#>   family child  dob        name 
+#>    <int> <chr>  <date>     <chr>
+#> 1      1 child1 1998-11-26 Susan
+#> 2      1 child2 2000-01-29 Jose 
+#> 3      2 child1 1996-06-22 Mark 
+#> 4      3 child1 2002-07-11 Sam  
+#> 5      3 child2 2004-04-05 Seth 
+#> 6      4 child1 2004-10-10 Craig
+#> # ℹ 3 more rows
+```
+
+## **6.4 Widening data**
+
+```{r}
+cms_patient_experience
+#> # A tibble: 500 × 5
+#>   org_pac_id org_nm                     measure_cd   measure_title   prf_rate
+#>   <chr>      <chr>                      <chr>        <chr>              <dbl>
+#> 1 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_1  CAHPS for MIPS…       63
+#> 2 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_2  CAHPS for MIPS…       87
+#> 3 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_3  CAHPS for MIPS…       86
+#> 4 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_5  CAHPS for MIPS…       57
+#> 5 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_8  CAHPS for MIPS…       85
+#> 6 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_12 CAHPS for MIPS…       24
+#> # ℹ 494 more rows
+```
+
+```{r}
+cms_patient_experience |> 
+  distinct(measure_cd, measure_title)
+#> # A tibble: 6 × 2
+#>   measure_cd   measure_title                                                 
+#>   <chr>        <chr>                                                         
+#> 1 CAHPS_GRP_1  CAHPS for MIPS SSM: Getting Timely Care, Appointments, and In…
+#> 2 CAHPS_GRP_2  CAHPS for MIPS SSM: How Well Providers Communicate            
+#> 3 CAHPS_GRP_3  CAHPS for MIPS SSM: Patient's Rating of Provider              
+#> 4 CAHPS_GRP_5  CAHPS for MIPS SSM: Health Promotion and Education            
+#> 5 CAHPS_GRP_8  CAHPS for MIPS SSM: Courteous and Helpful Office Staff        
+#> 6 CAHPS_GRP_12 CAHPS for MIPS SSM: Stewardship of Patient Resources
+```
+
+```{r}
+cms_patient_experience |> 
+  pivot_wider(
+    names_from = measure_cd,
+    values_from = prf_rate
+  )
+#> # A tibble: 500 × 9
+#>   org_pac_id org_nm                   measure_title   CAHPS_GRP_1 CAHPS_GRP_2
+#>   <chr>      <chr>                    <chr>                 <dbl>       <dbl>
+#> 1 0446157747 USC CARE MEDICAL GROUP … CAHPS for MIPS…          63          NA
+#> 2 0446157747 USC CARE MEDICAL GROUP … CAHPS for MIPS…          NA          87
+#> 3 0446157747 USC CARE MEDICAL GROUP … CAHPS for MIPS…          NA          NA
+#> 4 0446157747 USC CARE MEDICAL GROUP … CAHPS for MIPS…          NA          NA
+#> 5 0446157747 USC CARE MEDICAL GROUP … CAHPS for MIPS…          NA          NA
+#> 6 0446157747 USC CARE MEDICAL GROUP … CAHPS for MIPS…          NA          NA
+#> # ℹ 494 more rows
+#> # ℹ 4 more variables: CAHPS_GRP_3 <dbl>, CAHPS_GRP_5 <dbl>, …
+```
+
+```{r}
+cms_patient_experience |> 
+  pivot_wider(
+    id_cols = starts_with("org"),
+    names_from = measure_cd,
+    values_from = prf_rate
+  )
+#> # A tibble: 95 × 8
+#>   org_pac_id org_nm           CAHPS_GRP_1 CAHPS_GRP_2 CAHPS_GRP_3 CAHPS_GRP_5
+#>   <chr>      <chr>                  <dbl>       <dbl>       <dbl>       <dbl>
+#> 1 0446157747 USC CARE MEDICA…          63          87          86          57
+#> 2 0446162697 ASSOCIATION OF …          59          85          83          63
+#> 3 0547164295 BEAVER MEDICAL …          49          NA          75          44
+#> 4 0749333730 CAPE PHYSICIANS…          67          84          85          65
+#> 5 0840104360 ALLIANCE PHYSIC…          66          87          87          64
+#> 6 0840109864 REX HOSPITAL INC          73          87          84          67
+#> # ℹ 89 more rows
+#> # ℹ 2 more variables: CAHPS_GRP_8 <dbl>, CAHPS_GRP_12 <dbl>
+```
+
+### **6.4.1 How does `pivot_wider()` work?**
+
+```{r}
+df <- tribble(
+  ~id, ~measurement, ~value,
+  "A",        "bp1",    100,
+  "B",        "bp1",    140,
+  "B",        "bp2",    115, 
+  "A",        "bp2",    120,
+  "A",        "bp3",    105
+)
+```
+
+```{r}
+df |> 
+  pivot_wider(
+    names_from = measurement,
+    values_from = value
+  )
+#> # A tibble: 2 × 4
+#>   id      bp1   bp2   bp3
+#>   <chr> <dbl> <dbl> <dbl>
+#> 1 A       100   120   105
+#> 2 B       140   115    NA
+```
+
+```{r}
+df |> 
+  distinct(measurement) |> 
+  pull()
+#> [1] "bp1" "bp2" "bp3"
+```
+
+```{r}
+df |> 
+  select(-measurement, -value) |> 
+  distinct()
+#> # A tibble: 2 × 1
+#>   id   
+#>   <chr>
+#> 1 A    
+#> 2 B
+```
+
+```{r}
+df |> 
+  select(-measurement, -value) |> 
+  distinct() |> 
+  mutate(x = NA, y = NA, z = NA)
+#> # A tibble: 2 × 4
+#>   id    x     y     z    
+#>   <chr> <lgl> <lgl> <lgl>
+#> 1 A     NA    NA    NA   
+#> 2 B     NA    NA    NA
+```
+
+```{r}
+df <- tribble(
+  ~id, ~measurement, ~value,
+  "A",        "bp1",    100,
+  "A",        "bp1",    102,
+  "A",        "bp2",    120,
+  "B",        "bp1",    140, 
+  "B",        "bp2",    115
+)
+```
+
+```{r}
+df |>
+  pivot_wider(
+    names_from = measurement,
+    values_from = value
+  )
+#> Warning: Values from `value` are not uniquely identified; output will contain
+#> list-cols.
+#> • Use `values_fn = list` to suppress this warning.
+#> • Use `values_fn = {summary_fun}` to summarise duplicates.
+#> • Use the following dplyr code to identify duplicates.
+#>   {data} %>%
+#>   dplyr::group_by(id, measurement) %>%
+#>   dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+#>   dplyr::filter(n > 1L)
+#> # A tibble: 2 × 3
+#>   id    bp1       bp2      
+#>   <chr> <list>    <list>   
+#> 1 A     <dbl [2]> <dbl [1]>
+#> 2 B     <dbl [1]> <dbl [1]>
+```
+
+```{r}
+df |> 
+  group_by(id, measurement) |> 
+  summarize(n = n(), .groups = "drop") |> 
+  filter(n > 1)
+#> # A tibble: 1 × 3
+#>   id    measurement     n
+#>   <chr> <chr>       <int>
+#> 1 A     bp1             2
+```
+
+# **7 Workflow: scripts and projects**
+
+### **7.1.1 Running code**
+
+```{r}
+library(dplyr)
+library(nycflights13)
+
+
+not_cancelled <- flights |> 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+not_cancelled |> 
+  group_by(year, month, day) |> 
+  summarize(mean = mean(dep_delay))
+```
+
+### **7.2.2 Where does your analysis live?**
+
+```{r}
+getwd()
+#> [1] "/Users/hadley/Documents/r4ds"
+```
+
+### **7.2.3 RStudio projects**
+
+```{r}
+getwd()
+#> [1] /Users/hadley/Documents/r4ds
+```
+
+```{r}
+library(tidyverse)
+
+ggplot(diamonds, aes(x = carat, y = price)) + 
+  geom_hex()
+ggsave("diamonds.png")
+
+write_csv(diamonds, "data/diamonds.csv")
+```
+
+# **8 Data import**
+
+### **8.1.1 Prerequisites**
+
+```{r}
+library(tidyverse)
+```
+
+## **8.2 Reading data from a file**
+
+```{r}
+students <- read_csv("data/students.csv")
+#> Rows: 6 Columns: 5
+#> ── Column specification ─────────────────────────────────────────────────────
+#> Delimiter: ","
+#> chr (4): Full Name, favourite.food, mealPlan, AGE
+#> dbl (1): Student ID
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+```{r}
+students <- read_csv("https://pos.it/r4ds-students-csv")
+```
+
+### **8.2.1 Practical advice**
+
+```{r}
+students
+#> # A tibble: 6 × 5
+#>   `Student ID` `Full Name`      favourite.food     mealPlan            AGE  
+#>          <dbl> <chr>            <chr>              <chr>               <chr>
+#> 1            1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    
+#> 2            2 Barclay Lynn     French fries       Lunch only          5    
+#> 3            3 Jayendra Lyne    N/A                Breakfast and lunch 7    
+#> 4            4 Leon Rossini     Anchovies          Lunch only          <NA> 
+#> 5            5 Chidiegwu Dunkel Pizza              Breakfast and lunch five 
+#> 6            6 Güvenç Attila    Ice cream          Lunch only          6
+```
+
+```{r}
+students <- read_csv("data/students.csv", na = c("N/A", ""))
+
+students
+#> # A tibble: 6 × 5
+#>   `Student ID` `Full Name`      favourite.food     mealPlan            AGE  
+#>          <dbl> <chr>            <chr>              <chr>               <chr>
+#> 1            1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    
+#> 2            2 Barclay Lynn     French fries       Lunch only          5    
+#> 3            3 Jayendra Lyne    <NA>               Breakfast and lunch 7    
+#> 4            4 Leon Rossini     Anchovies          Lunch only          <NA> 
+#> 5            5 Chidiegwu Dunkel Pizza              Breakfast and lunch five 
+#> 6            6 Güvenç Attila    Ice cream          Lunch only          6
+```
+
+```{r}
+students |> 
+  rename(
+    student_id = `Student ID`,
+    full_name = `Full Name`
+  )
+#> # A tibble: 6 × 5
+#>   student_id full_name        favourite.food     mealPlan            AGE  
+#>        <dbl> <chr>            <chr>              <chr>               <chr>
+#> 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    
+#> 2          2 Barclay Lynn     French fries       Lunch only          5    
+#> 3          3 Jayendra Lyne    <NA>               Breakfast and lunch 7    
+#> 4          4 Leon Rossini     Anchovies          Lunch only          <NA> 
+#> 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five 
+#> 6          6 Güvenç Attila    Ice cream          Lunch only          6
+```
+
+```{r}
+students |> janitor::clean_names()
+#> # A tibble: 6 × 5
+#>   student_id full_name        favourite_food     meal_plan           age  
+#>        <dbl> <chr>            <chr>              <chr>               <chr>
+#> 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    
+#> 2          2 Barclay Lynn     French fries       Lunch only          5    
+#> 3          3 Jayendra Lyne    <NA>               Breakfast and lunch 7    
+#> 4          4 Leon Rossini     Anchovies          Lunch only          <NA> 
+#> 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five 
+#> 6          6 Güvenç Attila    Ice cream          Lunch only          6
+```
+
+```{r}
+students |>
+  janitor::clean_names() |>
+  mutate(meal_plan = factor(meal_plan))
+#> # A tibble: 6 × 5
+#>   student_id full_name        favourite_food     meal_plan           age  
+#>        <dbl> <chr>            <chr>              <fct>               <chr>
+#> 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    
+#> 2          2 Barclay Lynn     French fries       Lunch only          5    
+#> 3          3 Jayendra Lyne    <NA>               Breakfast and lunch 7    
+#> 4          4 Leon Rossini     Anchovies          Lunch only          <NA> 
+#> 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five 
+#> 6          6 Güvenç Attila    Ice cream          Lunch only          6
+```
+
+```{r}
+students <- students |>
+  janitor::clean_names() |>
+  mutate(
+    meal_plan = factor(meal_plan),
+    age = parse_number(if_else(age == "five", "5", age))
+  )
+
+students
+#> # A tibble: 6 × 5
+#>   student_id full_name        favourite_food     meal_plan             age
+#>        <dbl> <chr>            <chr>              <fct>               <dbl>
+#> 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4
+#> 2          2 Barclay Lynn     French fries       Lunch only              5
+#> 3          3 Jayendra Lyne    <NA>               Breakfast and lunch     7
+#> 4          4 Leon Rossini     Anchovies          Lunch only             NA
+#> 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5
+#> 6          6 Güvenç Attila    Ice cream          Lunch only              6
+```
+
+### **8.2.2 Other arguments**
+
+```{r}
+read_csv(
+  "a,b,c
+  1,2,3
+  4,5,6"
+)
+#> # A tibble: 2 × 3
+#>       a     b     c
+#>   <dbl> <dbl> <dbl>
+#> 1     1     2     3
+#> 2     4     5     6
+```
+
+```{r}
+read_csv(
+  "The first line of metadata
+  The second line of metadata
+  x,y,z
+  1,2,3",
+  skip = 2
+)
+#> # A tibble: 1 × 3
+#>       x     y     z
+#>   <dbl> <dbl> <dbl>
+#> 1     1     2     3
+
+read_csv(
+  "# A comment I want to skip
+  x,y,z
+  1,2,3",
+  comment = "#"
+)
+#> # A tibble: 1 × 3
+#>       x     y     z
+#>   <dbl> <dbl> <dbl>
+#> 1     1     2     3
+```
+
+```{r}
+read_csv(
+  "1,2,3
+  4,5,6",
+  col_names = FALSE
+)
+#> # A tibble: 2 × 3
+#>      X1    X2    X3
+#>   <dbl> <dbl> <dbl>
+#> 1     1     2     3
+#> 2     4     5     6
+```
+
+```{r}
+read_csv(
+  "1,2,3
+  4,5,6",
+  col_names = c("x", "y", "z")
+)
+#> # A tibble: 2 × 3
+#>       x     y     z
+#>   <dbl> <dbl> <dbl>
+#> 1     1     2     3
+#> 2     4     5     6
+```
+
+### **8.2.4 Exercises**
+
+```{r}
+"x,y\n1,'a,b'"
+```
+
+```{r}
+read_csv("a,b\n1,2,3\n4,5,6")
+read_csv("a,b,c\n1,2\n1,2,3,4")
+read_csv("a,b\n\"1")
+read_csv("a,b\n1,2\na,b")
+read_csv("a;b\n1;3")
+```
+
+```{r}
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+```
+
+### **8.3.1 Guessing types**
+
+```{r}
+read_csv("
+  logical,numeric,date,string
+  TRUE,1,2021-01-15,abc
+  false,4.5,2021-02-15,def
+  T,Inf,2021-02-16,ghi
+")
+#> # A tibble: 3 × 4
+#>   logical numeric date       string
+#>   <lgl>     <dbl> <date>     <chr> 
+#> 1 TRUE        1   2021-01-15 abc   
+#> 2 FALSE       4.5 2021-02-15 def   
+#> 3 TRUE      Inf   2021-02-16 ghi
+```
+
+### **8.3.2 Missing values, column types, and problems**
+
+```{r}
+simple_csv <- "
+  x
+  10
+  .
+  20
+  30"
+```
+
+```{r}
+read_csv(simple_csv)
+#> # A tibble: 4 × 1
+#>   x    
+#>   <chr>
+#> 1 10   
+#> 2 .    
+#> 3 20   
+#> 4 30
+```
+
+```{r}
+df <- read_csv(
+  simple_csv, 
+  col_types = list(x = col_double())
+)
+#> Warning: One or more parsing issues, call `problems()` on your data frame for
+#> details, e.g.:
+#>   dat <- vroom(...)
+#>   problems(dat)
+```
+
+```{r}
+problems(df)
+#> # A tibble: 1 × 5
+#>     row   col expected actual file                            
+#>   <int> <int> <chr>    <chr>  <chr>                           
+#> 1     3     1 a double .      /tmp/RtmpNAHxcM/file1e2417ec21b7
+```
+
+```{r}
+read_csv(simple_csv, na = ".")
+#> # A tibble: 4 × 1
+#>       x
+#>   <dbl>
+#> 1    10
+#> 2    NA
+#> 3    20
+#> 4    30
+```
+
+### **8.3.3 Column types**
+
+```{r}
+another_csv <- "
+x,y,z
+1,2,3"
+
+read_csv(
+  another_csv, 
+  col_types = cols(.default = col_character())
+)
+#> # A tibble: 1 × 3
+#>   x     y     z    
+#>   <chr> <chr> <chr>
+#> 1 1     2     3
+```
+
+```{r}
+read_csv(
+  another_csv,
+  col_types = cols_only(x = col_character())
+)
+#> # A tibble: 1 × 1
+#>   x    
+#>   <chr>
+#> 1 1
+```
+
+## **8.4 Reading data from multiple files**
+
+```{r}
+sales_files <- c("data/01-sales.csv", "data/02-sales.csv", "data/03-sales.csv")
+read_csv(sales_files, id = "file")
+#> # A tibble: 19 × 6
+#>   file              month    year brand  item     n
+#>   <chr>             <chr>   <dbl> <dbl> <dbl> <dbl>
+#> 1 data/01-sales.csv January  2019     1  1234     3
+#> 2 data/01-sales.csv January  2019     1  8721     9
+#> 3 data/01-sales.csv January  2019     1  1822     2
+#> 4 data/01-sales.csv January  2019     2  3333     1
+#> 5 data/01-sales.csv January  2019     2  2156     9
+#> 6 data/01-sales.csv January  2019     2  3987     6
+#> # ℹ 13 more rows
+```
+
+```{r}
+sales_files <- c(
+  "https://pos.it/r4ds-01-sales",
+  "https://pos.it/r4ds-02-sales",
+  "https://pos.it/r4ds-03-sales"
+)
+read_csv(sales_files, id = "file")
+```
+
+```{r}
+sales_files <- list.files("data", pattern = "sales\\.csv$", full.names = TRUE)
+sales_files
+#> [1] "data/01-sales.csv" "data/02-sales.csv" "data/03-sales.csv"
+```
+
+## **8.5 Writing to a file**
+
+```{r}
+write_csv(students, "students.csv")
+```
+
+```{r}
+students
+#> # A tibble: 6 × 5
+#>   student_id full_name        favourite_food     meal_plan             age
+#>        <dbl> <chr>            <chr>              <fct>               <dbl>
+#> 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4
+#> 2          2 Barclay Lynn     French fries       Lunch only              5
+#> 3          3 Jayendra Lyne    <NA>               Breakfast and lunch     7
+#> 4          4 Leon Rossini     Anchovies          Lunch only             NA
+#> 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5
+#> 6          6 Güvenç Attila    Ice cream          Lunch only              6
+write_csv(students, "students-2.csv")
+read_csv("students-2.csv")
+#> # A tibble: 6 × 5
+#>   student_id full_name        favourite_food     meal_plan             age
+#>        <dbl> <chr>            <chr>              <chr>               <dbl>
+#> 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4
+#> 2          2 Barclay Lynn     French fries       Lunch only              5
+#> 3          3 Jayendra Lyne    <NA>               Breakfast and lunch     7
+#> 4          4 Leon Rossini     Anchovies          Lunch only             NA
+#> 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5
+#> 6          6 Güvenç Attila    Ice cream          Lunch only              6
+```
+
+```{r}
+write_rds(students, "students.rds")
+read_rds("students.rds")
+#> # A tibble: 6 × 5
+#>   student_id full_name        favourite_food     meal_plan             age
+#>        <dbl> <chr>            <chr>              <fct>               <dbl>
+#> 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4
+#> 2          2 Barclay Lynn     French fries       Lunch only              5
+#> 3          3 Jayendra Lyne    <NA>               Breakfast and lunch     7
+#> 4          4 Leon Rossini     Anchovies          Lunch only             NA
+#> 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5
+#> 6          6 Güvenç Attila    Ice cream          Lunch only              6
+```
+
+```{r}
+library(arrow)
+write_parquet(students, "students.parquet")
+read_parquet("students.parquet")
+#> # A tibble: 6 × 5
+#>   student_id full_name        favourite_food     meal_plan             age
+#>        <dbl> <chr>            <chr>              <fct>               <dbl>
+#> 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4
+#> 2          2 Barclay Lynn     French fries       Lunch only              5
+#> 3          3 Jayendra Lyne    NA                 Breakfast and lunch     7
+#> 4          4 Leon Rossini     Anchovies          Lunch only             NA
+#> 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5
+#> 6          6 Güvenç Attila    Ice cream          Lunch only              6
+```
+
+## **8.6 Data entry**
+
+```{r}
+tibble(
+  x = c(1, 2, 5), 
+  y = c("h", "m", "g"),
+  z = c(0.08, 0.83, 0.60)
+)
+#> # A tibble: 3 × 3
+#>       x y         z
+#>   <dbl> <chr> <dbl>
+#> 1     1 h      0.08
+#> 2     2 m      0.83
+#> 3     5 g      0.6
+```
+
+```{r}
+tribble(
+  ~x, ~y, ~z,
+  1, "h", 0.08,
+  2, "m", 0.83,
+  5, "g", 0.60
+)
+#> # A tibble: 3 × 3
+#>       x y         z
+#>   <dbl> <chr> <dbl>
+#> 1     1 h      0.08
+#> 2     2 m      0.83
+#> 3     5 g      0.6
+```
+
+# **9 Workflow: getting help**
+
+## **9.2 Making a reprex**
+
+```{r}
+y <- 1:4
+mean(y)
+```
+
+```{r}
+reprex::reprex()
+```
+
+```{r}
+y <- 1:4
+mean(y)
+#> [1] 2.5
+```
+
+# **10 Layers**
+
+### **10.1.1 Prerequisites**
+
+```{r}
+library(tidyverse)
+```
+
+## **10.2 Aesthetic mappings**
+
+```{r}
+mpg
+#> # A tibble: 234 × 11
+#>   manufacturer model displ  year   cyl trans      drv     cty   hwy fl   
+#>   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr>
+#> 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p    
+#> 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p    
+#> 3 audi         a4      2    2008     4 manual(m6) f        20    31 p    
+#> 4 audi         a4      2    2008     4 auto(av)   f        21    30 p    
+#> 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p    
+#> 6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p    
+#> # ℹ 228 more rows
+#> # ℹ 1 more variable: class <chr>
+```
+
+```{r}
+# Left
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point()
+
+# Right
+ggplot(mpg, aes(x = displ, y = hwy, shape = class)) +
+  geom_point()
+#> Warning: The shape palette can deal with a maximum of 6 discrete values
+#> because more than 6 becomes difficult to discriminate; you have 7.
+#> Consider specifying shapes manually if you must have them.
+#> Warning: Removed 62 rows containing missing values (`geom_point()`).
+```
+
+```{r}
+# Left
+ggplot(mpg, aes(x = displ, y = hwy, size = class)) +
+  geom_point()
+#> Warning: Using size for a discrete variable is not advised.
+
+# Right
+ggplot(mpg, aes(x = displ, y = hwy, alpha = class)) +
+  geom_point()
+#> Warning: Using alpha for a discrete variable is not advised.
+```
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(color = "blue")
+```
+
+### **10.2.1 Exercises**
+
+```{r}
+ggplot(mpg) + 
+  geom_point(aes(x = displ, y = hwy, color = "blue"))
+```
+
+## **10.3 Geometric objects**
+
+```{r}
+# Left
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point()
+
+# Right
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_smooth()
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+```
+
+```{r}
+# Left
+ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) + 
+  geom_smooth()
+
+# Right
+ggplot(mpg, aes(x = displ, y = hwy, linetype = drv)) + 
+  geom_smooth()
+```
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() +
+  geom_smooth(aes(linetype = drv))
+```
+
+```{r}
+# Left
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_smooth()
+
+# Middle
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_smooth(aes(group = drv))
+
+# Right
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_smooth(aes(color = drv), show.legend = FALSE)
+```
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(aes(color = class)) + 
+  geom_smooth()
+```
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_point(
+    data = mpg |> filter(class == "2seater"), 
+    color = "red"
+  ) +
+  geom_point(
+    data = mpg |> filter(class == "2seater"), 
+    shape = "circle open", size = 3, color = "red"
+  )
+```
+
+```{r}
+# Left
+ggplot(mpg, aes(x = hwy)) +
+  geom_histogram(binwidth = 2)
+
+# Middle
+ggplot(mpg, aes(x = hwy)) +
+  geom_density()
+
+# Right
+ggplot(mpg, aes(x = hwy)) +
+  geom_boxplot()
+```
+
+```{r}
+library(ggridges)
+
+ggplot(mpg, aes(x = hwy, y = drv, fill = drv, color = drv)) +
+  geom_density_ridges(alpha = 0.5, show.legend = FALSE)
+#> Picking joint bandwidth of 1.28
+```
+
+### **10.3.1 Exercises**
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_smooth(aes(color = drv), show.legend = FALSE)
+```
+
+## **10.4 Facets**
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  facet_wrap(~cyl)
+```
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  facet_grid(drv ~ cyl)
+```
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  facet_grid(drv ~ cyl, scales = "free_y")
+```
+
+### **10.4.1 Exercises**
+
+```{r}
+ggplot(mpg) + 
+  geom_point(aes(x = drv, y = cyl))
+```
+
+```{r}
+ggplot(mpg) + 
+  geom_point(aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+ggplot(mpg) + 
+  geom_point(aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+```
+
+```{r}
+ggplot(mpg) + 
+  geom_point(aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+
+```{r}
+ggplot(mpg, aes(x = displ)) + 
+  geom_histogram() + 
+  facet_grid(drv ~ .)
+
+ggplot(mpg, aes(x = displ)) + 
+  geom_histogram() +
+  facet_grid(. ~ drv)
+```
+
+```{r}
+ggplot(mpg) + 
+  geom_point(aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+```
+
+## **10.5 Statistical transformations**
+
+```{r}
+ggplot(diamonds, aes(x = cut)) + 
+  geom_bar()
+```
+
+```{r}
+diamonds |>
+  count(cut) |>
+  ggplot(aes(x = cut, y = n)) +
+  geom_bar(stat = "identity")
+```
+
+```{r}
+ggplot(diamonds, aes(x = cut, y = after_stat(prop), group = 1)) + 
+  geom_bar()
+```
+
+```{r}
+ggplot(diamonds) + 
+  stat_summary(
+    aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+```
+
+### **10.5.1 Exercises**
+
+```{r}
+ggplot(diamonds, aes(x = cut, y = after_stat(prop))) + 
+  geom_bar()
+ggplot(diamonds, aes(x = cut, fill = color, y = after_stat(prop))) + 
+  geom_bar()
+```
+
+## **10.6 Position adjustments**
+
+```{r}
+# Left
+ggplot(mpg, aes(x = drv, color = drv)) + 
+  geom_bar()
+
+# Right
+ggplot(mpg, aes(x = drv, fill = drv)) + 
+  geom_bar()
+```
+
+```{r}
+ggplot(mpg, aes(x = drv, fill = class)) + 
+  geom_bar()
+```
+
+```{r}
+# Left
+ggplot(mpg, aes(x = drv, fill = class)) + 
+  geom_bar(alpha = 1/5, position = "identity")
+
+# Right
+ggplot(mpg, aes(x = drv, color = class)) + 
+  geom_bar(fill = NA, position = "identity")
+```
+
+```{r}
+# Left
+ggplot(mpg, aes(x = drv, fill = class)) + 
+  geom_bar(position = "fill")
+
+# Right
+ggplot(mpg, aes(x = drv, fill = class)) + 
+  geom_bar(position = "dodge")
+```
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(position = "jitter")
+```
+
+### **10.6.1 Exercises**
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy)) + 
+  geom_point()
+```
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(position = "identity")
+```
+
+## **10.7 Coordinate systems**
+
+```{r}
+nz <- map_data("nz")
+
+ggplot(nz, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "white", color = "black")
+
+ggplot(nz, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "white", color = "black") +
+  coord_quickmap()
+```
+
+```{r}
+bar <- ggplot(data = diamonds) + 
+  geom_bar(
+    mapping = aes(x = clarity, fill = clarity), 
+    show.legend = FALSE,
+    width = 1
+  ) + 
+  theme(aspect.ratio = 1)
+
+bar + coord_flip()
+bar + coord_polar()
+```
+
+### **10.7.1 Exercises**
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_point() + 
+  geom_abline() +
+  coord_fixed()
+```
+
+# **11 Exploratory data analysis**
+
+### **11.1.1 Prerequisites**
+
+```{r}
+library(tidyverse)
+```
+
+## **11.3 Variation**
+
+```{r}
+ggplot(diamonds, aes(x = carat)) +
+  geom_histogram(binwidth = 0.5)
+```
+
+### **11.3.1 Typical values**
+
+```{r}
+smaller <- diamonds |> 
+  filter(carat < 3)
+
+ggplot(smaller, aes(x = carat)) +
+  geom_histogram(binwidth = 0.01)
+```
