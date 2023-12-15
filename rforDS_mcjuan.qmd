@@ -444,7 +444,7 @@ primes * 2
 #> [1]  4  6 10 14 22 26
 ```
 
-## **3.3 What\'s in a name?**
+## **3.3 What's in a name?**
 
 ```{r}
 x
@@ -793,7 +793,7 @@ flights |>
   )
 ```
 
-### **4.3.2 `select()`** 
+### **4.3.2 `select()`**
 
 ```{r}
 flights |> 
