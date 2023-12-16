@@ -335,20 +335,374 @@ str(dataf)
 
 # **Chapter 4** Graphics with base R
 
-Summarising your data, either numerically or graphically, is an important (if often overlooked) component of any data analysis. Fortunately, R has excellent graphics capabilities and can be used whether you want to produce plots for initial data exploration, model validation or highly complex publication quality figures. There are three main systems for producing graphics in R; base R graphics, lattice graphics and ggplot2. Each of these systems have their strengths and weaknesses and we often use them interchangeably. In this Chapter we\'ll focus mostly on base R graphics with a sprinkling of lattice graphics for added variety. In the next [Chapter](https://intro2r.com/graphics_r.html#graphics_r) we\'ll introduce you to the `ggplot2` package.
+Summarising your data, either numerically or graphically, is an important (if often overlooked) component of any data analysis. Fortunately, R has excellent graphics capabilities and can be used whether you want to produce plots for initial data exploration, model validation or highly complex publication quality figures. There are three main systems for producing graphics in R; base R graphics, lattice graphics and ggplot2. Each of these systems have their strengths and weaknesses and we often use them interchangeably. In this Chapter we'll focus mostly on base R graphics with a sprinkling of lattice graphics for added variety. In the next [Chapter](https://intro2r.com/graphics_r.html#graphics_r) we'll introduce you to the `ggplot2` package.
 
-The base R graphics system is the original plotting system that\'s been around (and has evolved) since the first days of R. When creating plots with base R we tend to use high level functions (like the `plot()` function) to first create our plot and then use one or more low level functions (like `lines()` and `text()` etc) to add additional information to these plots. This can seem a little weird (and time consuming) when you first start creating fancy plots in R, but it does allow you to customise almost every aspect of your plot and build complexity up in layers. The flip side to this flexibility is that you\'ll often need to make many decisions about how you want your plot to look rather than rely on the software to make these decisions for you. Having said that, it\'s generally very quick and easy to generate simple exploratory plots with base R graphics.
+The base R graphics system is the original plotting system that's been around (and has evolved) since the first days of R. When creating plots with base R we tend to use high level functions (like the `plot()` function) to first create our plot and then use one or more low level functions (like `lines()` and `text()` etc) to add additional information to these plots. This can seem a little weird (and time consuming) when you first start creating fancy plots in R, but it does allow you to customise almost every aspect of your plot and build complexity up in layers. The flip side to this flexibility is that you'll often need to make many decisions about how you want your plot to look rather than rely on the software to make these decisions for you. Having said that, it's generally very quick and easy to generate simple exploratory plots with base R graphics.
 
-The lattice system is implemented in the `lattice()` package that comes pre-installed with the standard installation of R. However, it won\'t be loaded by default so you\'ll first need to use `library(lattice)` to access all the plotting functions. Unlike base R graphics, lattice plots are mostly generated all in one go using a single function so there\'s no need to use high and low level plotting functions to customise the look of a plot. This can be a real advantage as things like margin sizes and plot spacing are adjusted automatically. Lattice plots also make a few more decisions for you about how the plots will look but this comes with a slight cost as customising lattice plots to get them to look exactly how you want can become quite involved. Where lattice plots really shine is plotting complex multi-dimensional data using panel plots (also called trellis plots). We\'ll see a couple of examples of these types of plots later in the Chapter.
+The lattice system is implemented in the `lattice()` package that comes pre-installed with the standard installation of R. However, it won't be loaded by default so you'll first need to use `library(lattice)` to access all the plotting functions. Unlike base R graphics, lattice plots are mostly generated all in one go using a single function so there's no need to use high and low level plotting functions to customise the look of a plot. This can be a real advantage as things like margin sizes and plot spacing are adjusted automatically. Lattice plots also make a few more decisions for you about how the plots will look but this comes with a slight cost as customising lattice plots to get them to look exactly how you want can become quite involved. Where lattice plots really shine is plotting complex multi-dimensional data using panel plots (also called trellis plots). We'll see a couple of examples of these types of plots later in the Chapter.
 
-There are many functions in R to produce plots ranging from the very basic to the highly complex. It\'s impossible to cover every aspect of producing graphics in R in this introductory book so we\'ll introduce you to most of the common methods of graphing data and describe how to customise your graphs later on in this [Chapter](https://intro2r.com/custom_plot.html#custom_plot).
+There are many functions in R to produce plots ranging from the very basic to the highly complex. It's impossible to cover every aspect of producing graphics in R in this introductory book so we'll introduce you to most of the common methods of graphing data and describe how to customise your graphs later on in this [Chapter](https://intro2r.com/custom_plot.html#custom_plot).
 
-All of the plots we\'ve created so far in this Chapter are more than suitable for exploring your data. If however, you\'d like to make them a little prettier (for your thesis, publication or even your own amusement) you\'ll need to invest some time learning how to customise your plots. The good news is that the base R graphics system allows you to change almost any aspect of your plot. There are however a couple of things to bear in mind. Firstly, although many of the approaches we introduce in this section will work with most base R plotting functions, there\'s no true consistency between functions. What works with the `plot()` function isn\'t guaranteed to necessarily work with the `boxplot()` function. This can be a little frustrating to begin with but gets easier the more experience you gain. If you crave a little more consistency take a look at [Chapter 5](https://intro2r.com/graphics_r.html#graphics_r) where we introduce the excellent `ggplot2` package. Secondly, when you start customising plots you\'re confronted with a huge number of options and arguments to try and remember. This isn\'t necessarily a bad thing as this is what makes base R graphics so flexible but it\'s a lot to take in. Often a quick Google or peek at the relevant help pages will jog your memory. Thirdly, learning how to customise plots in base R isn\'t just about what code you need to use, it\'s also about learning the process of building a plot. We often start with a basic layout of our plot and then add layers of complexity until we achieve the desired results. This requires a little experience (and trial and error), but again becomes easier with practice. Lastly, this section covers the basics of how to customise base R graphics and most (if not all) of these approaches will not work for plots created with the `lattice` graphics system.
+All of the plots we've created so far in this Chapter are more than suitable for exploring your data. If however, you'd like to make them a little prettier (for your thesis, publication or even your own amusement) you'll need to invest some time learning how to customise your plots. The good news is that the base R graphics system allows you to change almost any aspect of your plot. There are however a couple of things to bear in mind. Firstly, although many of the approaches we introduce in this section will work with most base R plotting functions, there's no true consistency between functions. What works with the `plot()` function isn't guaranteed to necessarily work with the `boxplot()` function. This can be a little frustrating to begin with but gets easier the more experience you gain. If you crave a little more consistency take a look at [Chapter 5](https://intro2r.com/graphics_r.html#graphics_r) where we introduce the excellent `ggplot2` package. Secondly, when you start customising plots you're confronted with a huge number of options and arguments to try and remember. This isn't necessarily a bad thing as this is what makes base R graphics so flexible but it's a lot to take in. Often a quick Google or peek at the relevant help pages will jog your memory. Thirdly, learning how to customise plots in base R isn't just about what code you need to use, it's also about learning the process of building a plot. We often start with a basic layout of our plot and then add layers of complexity until we achieve the desired results. This requires a little experience (and trial and error), but again becomes easier with practice. Lastly, this section covers the basics of how to customise base R graphics and most (if not all) of these approaches will not work for plots created with the `lattice` graphics system.
 
-There are a number of different methods for plotting multiple graphs within the same graphics device, some of which you\'ve already met such as `pairs()`, `coplot()`, `xyplot()` etc. However these functions rely on plotting multiple graphs in different panels within the same plot. If you want to plot separate plots within the same graphics device you\'ll need a different approach. One of the most common methods is to use the main graphical function `par()` to split the plotting device up into a number of defined sections using the `mfrow =` argument. With this method, you first need to specify the number of rows and columns of plots you would like and then run the code for each plot. For example, to plot two graphs side by side we would use `par(mfrow = c(1, 2))` to split the device into 1 row and two columns.
+There are a number of different methods for plotting multiple graphs within the same graphics device, some of which you've already met such as `pairs()`, `coplot()`, `xyplot()` etc. However these functions rely on plotting multiple graphs in different panels within the same plot. If you want to plot separate plots within the same graphics device you'll need a different approach. One of the most common methods is to use the main graphical function `par()` to split the plotting device up into a number of defined sections using the `mfrow =` argument. With this method, you first need to specify the number of rows and columns of plots you would like and then run the code for each plot. For example, to plot two graphs side by side we would use `par(mfrow = c(1, 2))` to split the device into 1 row and two columns.
 
-Creating plots in R is all well and good but what if you want to use these plots in your thesis, report or publication? One option is to click on the \'Export\' button in the \'Plots\' tab in RStudio as we described [previously](https://intro2r.com/baseplot_start.html#baseplot_start). You can also export your plots from R to an external file by writing some code in your R script. The advantage of this approach is that you have a little more control over the output format and it also allows you to generate (or update) plots automatically whenever you run your script. You can export your plots in many different formats but the most common are, pdf, png, jpeg and tiff.
+Creating plots in R is all well and good but what if you want to use these plots in your thesis, report or publication? One option is to click on the 'Export' button in the 'Plots' tab in RStudio as we described [previously](https://intro2r.com/baseplot_start.html#baseplot_start). You can also export your plots from R to an external file by writing some code in your R script. The advantage of this approach is that you have a little more control over the output format and it also allows you to generate (or update) plots automatically whenever you run your script. You can export your plots in many different formats but the most common are, pdf, png, jpeg and tiff.
 
-By default, R (and therefore RStudio) will direct any plot you create to the plot window. To save your plot to an external file you first need to redirect your plot to a different graphics device. You do this by using one of the many graphics device functions to start a new graphic device. For example, to save a plot in pdf format we will use the `pdf()` function. The first argument in the `pdf()` function is the filepath and filename of the file we want to save (don\'t forget to include the .pdf extension). Once we\'ve used the `pdf()` function we can then write all of the code we used to create our plot including any graphical parameters such as setting the margins and splitting up the plotting device. Once the code has run we need to close the pdf plotting device using the `dev.off()` function.
+By default, R (and therefore RStudio) will direct any plot you create to the plot window. To save your plot to an external file you first need to redirect your plot to a different graphics device. You do this by using one of the many graphics device functions to start a new graphic device. For example, to save a plot in pdf format we will use the `pdf()` function. The first argument in the `pdf()` function is the filepath and filename of the file we want to save (don't forget to include the .pdf extension). Once we've used the `pdf()` function we can then write all of the code we used to create our plot including any graphical parameters such as setting the margins and splitting up the plotting device. Once the code has run we need to close the pdf plotting device using the `dev.off()` function.
 
 # **Chapter 5** Graphics with ggplot
+
+```{r}
+# Including aesthetics for x and y axes as well as specifying the dataset
+ggplot(mapping = aes(x = weight, y = shootarea), data = flower)
+```
+
+```{r}
+ggplot(aes(x = weight, y = shootarea), data = flower) +
+        geom_point()     # Adding a geom to display data as point data
+```
+
+```{r}
+ggplot(aes(x = weight, y = shootarea), data = flower) +
+  geom_point() +
+    geom_line()     # Adding geom_line
+```
+
+```{r}
+ggplot(aes(x = weight, y = shootarea), data = flower) +
+  geom_point() +
+    geom_smooth()    # Changing to geom_smooth
+```
+
+```{r}
+ggplot(aes(x = weight, y = shootarea), data = flower) +
+  geom_point() +
+    geom_smooth(method = "lm", se = FALSE)    # method and se 
+```
+
+```{r}
+ggplot(aes(x = weight, y = shootarea, colour = nitrogen), data = flower) +
+    geom_point(aes(shape = nitrogen), size = 2, alpha = 0.6) +
+    geom_smooth(method = "lm", se = FALSE) +
+    facet_grid(block ~ treat) +
+    xlab("Weight of flower (g)") +
+    ylab(bquote("Area of shoot"~(cm^2))) +
+    # Including \n to split legend title over two lines 
+    labs(shape = "Nitrogen\nConcentration", colour = "Nitrogen\nConcentration", 
+             caption = "Regression assumptions are unvalidated")
+```
+
+```{r}
+ggplot(aes(x = weight, y = shootarea, colour = nitrogen), data = flower) +
+    geom_point(aes(shape = nitrogen), size = 2, alpha = 0.6) +
+    geom_smooth(method = "lm", se = FALSE) +
+    facet_grid(block ~ treat) +
+    xlab("Weight of flower (g)") +
+    ylab(bquote("Area of shoot"~(cm^2))) +
+    # Adding labels for shape, colour and a caption 
+    labs(shape = "Nitrogen Concentration", colour = "Nitrogen Concentration", 
+             caption = "Regression assumptions are unvalidated")
+```
+
+```{r}
+ggplot(aes(x = weight, y = shootarea), data = flower) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+ggplot(aes(x = weight, y = shootarea, colour = nitrogen), data = flower) +
+    geom_point(aes(shape = nitrogen), size = 2, alpha = 0.6) +
+    geom_smooth(method = "lm", se = FALSE) +
+    geom_smooth(method = "lm", se = FALSE, linetype = 2, alpha = 0.6, colour = "black") +
+    xlab("Weight of flower (g)") +
+    ylab(bquote("Area of shoot"~(cm^2))) +
+    labs(shape = "Nitrogen\nConcentration", colour = "Nitrogen\nConcentration", 
+             caption = "Regression assumptions are unvalidated") +
+    geom_hline(aes(yintercept = 79.8), size = 0.5, colour = "black", linetype = 3) +
+    scale_colour_manual(values = c("#5C1AAE", "#AE5C1A", "#1AAE5C"),
+       labels = c("High", "Medium", "Low")) +
+    scale_shape_manual(values = c(15,17,19),
+       labels = c("High", "Medium", "Low")) +
+    # Changing the angle of the axis text
+    theme(axis.text.x=element_text(angle = 45, vjust = 0.5)) +
+    theme_rbook()
+```
+
+```{r}
+ggplot(flower) +
+    geom_density(aes(x = flowers, fill = nitrogen), alpha = 0.5) +
+    labs(y = "Density", x = "Number of Flowers", fill = "Nitrogen\nConcentration") +
+    scale_fill_manual(labels = c("High", "Medium", "Low"),
+        values = c("#DB24BC", "#BCDB24", "#24BCDB")) +
+    theme_rbook()
+```
+
+```{r}
+ggplot(flower) +
+    geom_histogram(aes(x = flowers, fill = factor(block)), colour = "black", bins = 20,
+                 position = "dodge") +
+    labs(y = "Count", x = "Number of Flowers", fill = "Greenhouse\nBlock") +
+    scale_fill_manual(labels = c("1", "2"),
+          values = c("#8CD926", "#7326D9")) +
+    theme_rbook()
+```
+
+```{r}
+ggplot(flower) +
+    geom_boxplot(aes(y = flowers, x = nitrogen)) +
+    labs(y = "Number of Flowers", x = "Nitrogen Concentration") +
+    theme_rbook()
+```
+
+```{r}
+ggplot(flower) +
+  geom_violin(aes(y = flowers, x = nitrogen, fill = nitrogen), 
+              draw_quantiles = c(0.25, 0.5, 0.75)) +
+  geom_jitter(aes(y = flowers, x = nitrogen), colour = "black", height = 0, 
+              width = 0.1, alpha = 0.5) +
+    scale_fill_manual(labels = c("High", "Medium", "Low"),
+         values = c("#5f7f5c", "#749770", "#9eb69b")) +
+    labs(y = "Number of Flowers", x = "Nitrogen Concentration") +
+    scale_y_log10() +
+    theme_rbook()
+```
+
+```{r}
+ggplot(flower) +
+  geom_bar(aes(x = factor(block), fill = nitrogen)) +
+    scale_fill_manual(labels = c("High", "Medium", "Low"),
+         values = c("#2613EC", "#9313EC", "#EC13D9")) +
+    labs(y = "Count", x = "Block") +
+    theme_rbook()
+```
+
+```{r}
+ggplot(aes(x = leafarea, y = shootarea), data = flower) +
+    geom_bin2d() +
+    labs(y = "Shoot Area", x = "Leaf Area") +
+    coord_cartesian(xlim = c(5,25)) +
+    theme_rbook()
+```
+
+```{r}
+library(hexbin)
+
+ggplot(aes(x = leafarea, y = shootarea), data = flower) +
+    geom_hex() +
+    labs(y = "Shoot Area", x = "Leaf Area") +
+    coord_cartesian(xlim = c(5,25)) +
+    theme_rbook()
+```
+
+```{r}
+ggplot(aes(x = leafarea, y = shootarea), data = flower) +
+    geom_density2d() +
+    labs(y = "Shoot Area", x = "Leaf Area") +
+    coord_cartesian(xlim = c(5,25)) +
+    theme_rbook()
+```
+
+```{r}
+ggplot(aes(x = leafarea, y = shootarea), data = flower) +
+    stat_density_2d(aes(fill = stat(level)), geom = "polygon") +
+    labs(y = "Shoot Area", x = "Leaf Area") +
+    coord_cartesian(xlim = c(5,25)) +
+    theme_rbook()
+```
+
+```{r}
+ggplot(flower) + 
+    geom_hline(aes(yintercept = as.numeric(rownames(flower))), linetype = 2,
+             colour = "lightgrey") +
+  geom_point(aes(x = leafarea, y = as.numeric(rownames(flower)))) +
+  labs(y = "Order in Dataset", x = bquote("Area of leaf"~(cm^2))) +
+    theme_rbook()
+```
+
+# **Chapter 6** Simple Statistics in R
+
+```{r}
+qqnorm(trees$Height)
+qqline(trees$Height, lty = 2)
+```
+
+```{r}
+data(trees)
+str(trees)
+## 'data.frame':    31 obs. of  3 variables:
+##  $ Girth : num  8.3 8.6 8.8 10.5 10.7 10.8 11 11 11.1 11.2 ...
+##  $ Height: num  70 65 63 72 81 83 66 75 80 75 ...
+##  $ Volume: num  10.3 10.3 10.2 16.4 18.8 19.7 15.6 18.2 22.6 19.9 ...
+summary(trees)
+##      Girth           Height       Volume     
+##  Min.   : 8.30   Min.   :63   Min.   :10.20  
+##  1st Qu.:11.05   1st Qu.:72   1st Qu.:19.40  
+##  Median :12.90   Median :76   Median :24.20  
+##  Mean   :13.25   Mean   :76   Mean   :30.17  
+##  3rd Qu.:15.25   3rd Qu.:80   3rd Qu.:37.30  
+##  Max.   :20.60   Max.   :87   Max.   :77.00
+```
+
+```{r}
+data(trees)
+str(trees)
+## 'data.frame':    31 obs. of  3 variables:
+##  $ Girth : num  8.3 8.6 8.8 10.5 10.7 10.8 11 11 11.1 11.2 ...
+##  $ Height: num  70 65 63 72 81 83 66 75 80 75 ...
+##  $ Volume: num  10.3 10.3 10.2 16.4 18.8 19.7 15.6 18.2 22.6 19.9 ...
+cor(trees$Height, trees$Volume)
+## [1] 0.5982497
+```
+
+```{r}
+cor.test(trees$Height, trees$Volume, method = "spearman")
+## Warning in cor.test.default(trees$Height, trees$Volume, method = "spearman"):
+## Cannot compute exact p-value with ties
+## 
+##  Spearman's rank correlation rho
+## 
+## data:  trees$Height and trees$Volume
+## S = 2089.6, p-value = 0.0006484
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.5787101
+```
+
+# **Chapter 7** Programming in R
+
+```{r}
+theme_classic
+## function (base_size = 11, base_family = "", base_line_size = base_size/22, 
+##     base_rect_size = base_size/22) 
+## {
+##     theme_bw(base_size = base_size, base_family = base_family, 
+##         base_line_size = base_line_size, base_rect_size = base_rect_size) %+replace% 
+##         theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
+##             panel.grid.minor = element_blank(), axis.line = element_line(colour = "black", 
+##                 linewidth = rel(1)), legend.key = element_blank(), 
+##             strip.background = element_rect(fill = "white", colour = "black", 
+##                 linewidth = rel(2)), complete = TRUE)
+## }
+## <bytecode: 0x7f8631ef8ef0>
+## <environment: namespace:ggplot2>
+```
+
+```{r}
+good.day <- function(code.working, day) {
+  if (code.working == TRUE && day == "Friday") {
+    "BEST. DAY. EVER. Stop while you are ahead and go to the pub!"
+  } else if (code.working == FALSE && day == "Friday") {
+    "Oh well, but at least it's Friday! Pub time!"
+  } else if (code.working == TRUE && day != "Friday") {
+    "So close to a good day... shame it's not a Friday"
+  } else if (code.working == FALSE && day != "Friday") {
+    "Hello darkness."
+  }
+}
+
+good.day(code.working = TRUE, day = "Friday")
+## [1] "BEST. DAY. EVER. Stop while you are ahead and go to the pub!"
+
+good.day(FALSE, "Tuesday")
+## [1] "Hello darkness."
+```
+
+```{r}
+for (i in 1:5) {
+  print(i)
+}
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+```
+
+```{r}
+i <- 1
+print(i)
+## [1] 1
+```
+
+```{r}
+sapply(0:4, function(a) {a + 1})
+## [1] 1 2 3 4 5
+```
+
+```{r}
+add_fun <- function(a) {a + 1}
+lapply(0:4, add_fun)
+## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 2
+## 
+## [[3]]
+## [1] 3
+## 
+## [[4]]
+## [1] 4
+## 
+## [[5]]
+## [1] 5
+```
+
+# **Chapter 8** Reproducible reports with R markdown
+
+```{r}
+x <- 1:10    # create an x variable
+y <- 10:1    # create a y variable
+dataf <- data.frame(x = x, y = y)
+plot(dataf$x, dataf$y, xlab = "x axis", ylab = "y axis")
+```
+
+```{r}
+x <- 1:10    # create an x variable
+y <- 10:1    # create a y variable
+dataf <- data.frame(x = x, y = y)
+plot(dataf$x, dataf$y, xlab = "x axis", ylab = "y axis")
+```
+
+```{r}
+x <- 1:10    # create an x variable
+y <- 10:1    # create a y variable
+dataf <- data.frame(x = x, y = y)
+plot(dataf$x, dataf$y, xlab = "x axis", ylab = "y axis")
+```
+
+```{r}
+x <- 1:10    # create an x variable
+y <- 10:1    # create a y variable
+dataf <- data.frame(x = x, y = y)
+
+library(ggplot2)
+ggplot(dataf, aes(x = x, y = y)) +
+  geom_point()
+```
+
+```{r}
+library(knitr)
+kable(iris[1:10,])
+```
+
+# **Chapter 9** Version control with Git and GitHub
+
+## **9.1** What is version control?
+
+A [Version Control System](https://en.wikipedia.org/wiki/Version_control) (VCS) keeps a record of all the changes you make to your files that make up a particular project and allows you to revert to previous versions of files if you need to. To put it another way, if you muck things up or accidentally lose important files you can easily roll back to a previous stage in your project to sort things out. Version control was originally designed for collaborative software development, but it\'s equally useful for scientific research and collaborations (although admittedly a lot of the terms, jargon and functionality are focused on the software development side). There are many different version control systems currently available, but we\' we\'ll focus on using *Git*, because it\'s free and open source and it integrates nicely with RStudio. This means that its can easily become part of your usual workflow with minimal additional overhead.
+
+## **9.2** Why use version control?
+
+Version control automatically takes care of keeping a record of all the versions of a particular file and allows you to revert back to previous versions if you need to. Version control also helps you (especially the future you) keep track of all your files in a single place and it helps others (especially collaborators) review, contribute to and reuse your work through the GitHub website. Lastly, your files are always available from anywhere and on any computer, all you need is an internet connection.
+
+## **9.3** What is Git and GitHub?
+
+**Git** is a version control system originally developed by [Linus Torvalds](https://en.wikipedia.org/wiki/Linus_Torvalds) that lets you track changes to a set of files. These files can be any type of file including the menagerie of files that typically make up a data orientated project (.pdf, .Rmd, .docx, .txt, .jpg etc) although plain text files work the best. All the files that make up a project is called a **repository** (or just **repo**).
+
+**GitHub** is a web-based hosting service for Git repositories which allows you to create a remote copy of your local version-controlled project. This can be used as a backup or archive of your project or make it accessible to you and to your colleagues so you can work collaboratively.
+
+At the start of a project we typically (but not always) create a **remote** repository on GitHub, then **clone** (think of this as copying) this repository to our **local** computer (the one in front of you). This cloning is usually a one time event and you shouldn\'t need to clone this repository again unless you really muck things up. Once you have cloned your repository you can then work locally on your project as usual, creating and saving files for your data analysis (scripts, R markdown documents, figures etc). Along the way you can take snapshots (called **commits**) of these files after you\'ve made important changes. We can then **push** these changes to the remote GitHub repository to make a backup or make available to our collaborators. If other people are working on the same project (**repository**), or maybe you\'re working on a different computer, you can **pull** any changes back to your local repository so everything is synchronised.
